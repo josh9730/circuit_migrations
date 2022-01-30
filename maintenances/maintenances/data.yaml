@@ -1,0 +1,12 @@
+---
+ticket: NOC-600000
+
+### Circuits
+hostname: sac-agg4
+device_type: iosxr # validate dev_type
+circuits:
+  - name: CLR-6216 # validate 'CLR-[0-9]{4,5}'
+    service: ibgp # validate ibgp, ebgp, static ????
+    neighbor: sac-csu-2 # hostname OR IPv4
+    v6_neighbor: # IPv6 neighbor address
+    port: Hu0/3/0/0 # check this somehow
