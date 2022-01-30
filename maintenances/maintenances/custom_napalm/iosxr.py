@@ -24,7 +24,8 @@ class CustomIOSXRDriver(IOSXRDriver):
         }
 
         isis_rpc_request = "<Get><Operational><ISIS><InstanceTable><Instance><Naming>\
-        <InstanceName>2152</InstanceName></Naming><HostnameTable></HostnameTable><NeighborTable></NeighborTable></Instance></InstanceTable></ISIS></Operational></Get>"
+        <InstanceName>2152</InstanceName></Naming><HostnameTable></HostnameTable>\
+        <NeighborTable></NeighborTable></Instance></InstanceTable></ISIS></Operational></Get>"
 
         isis_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(isis_rpc_request))
 
