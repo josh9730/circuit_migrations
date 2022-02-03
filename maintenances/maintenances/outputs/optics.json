@@ -1,0 +1,210 @@
+{
+  "0/0/0/0": {
+    "PID": "DWDM-XFP-C",
+    "Serial": "JFX1716A04P"
+  },
+  "0/0/0/1": {
+    "PID": "DWDM-XFP-C",
+    "Serial": "JFX1725A013"
+  },
+  "0/0/0/2": {
+    "PID": "DWDM-XFP-C",
+    "Serial": "JFX1716A03Q"
+  },
+  "0/0/0/3": {
+    "PID": "DWDM-XFP-C",
+    "Serial": "JFX1716A03E"
+  },
+  "HundredGigE0/2/0/0": {
+    "PID": "57-0000087-01",
+    "Serial": "JAF313170000DPR"
+  },
+  "HundredGigE0/3/0/0": {
+    "PID": "CFP-100G-SR10",
+    "Serial": "FNS18401PVP"
+  },
+  "HundredGigE0/3/0/1": {
+    "PID": "57-0000087-01,",
+    "Serial": "JAF313040001RUS"
+  },
+  "HundredGigE0/5/0/0": {
+    "PID": "CFP-100G-SR10",
+    "Serial": "FNS17221WCY"
+  },
+  "HundredGigE0/5/0/1": {
+    "PID": "CFP-100G-SR10",
+    "Serial": "FNS20190FFA"
+  },
+  "TenGigE0/7/0/0": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1947T08H"
+  },
+  "TenGigE0/7/0/1": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1947T09X"
+  },
+  "TenGigE0/7/0/2": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS2013083V"
+  },
+  "TenGigE0/7/0/3": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS2013083Q"
+  },
+  "TenGigE0/7/0/4": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS2013083F"
+  },
+  "TenGigE0/7/0/5": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20130DC3"
+  },
+  "TenGigE0/7/0/6": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1947T08X"
+  },
+  "TenGigE0/7/0/7": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1947T0AE"
+  },
+  "TenGigE0/7/0/8": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1943T20B"
+  },
+  "TenGigE0/7/0/9": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1947T09L"
+  },
+  "TenGigE0/7/0/10": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "ONT191400U8"
+  },
+  "TenGigE0/7/0/11": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "SPC19120067"
+  },
+  "TenGigE0/7/0/12": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD1943T209"
+  },
+  "TenGigE0/7/0/13": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "ONT191502P3"
+  },
+  "TenGigE0/7/0/14": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20380PY8"
+  },
+  "TenGigE0/7/0/15": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20380PYE"
+  },
+  "TenGigE0/7/0/16": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS203906YM"
+  },
+  "TenGigE0/7/0/17": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20380PRR"
+  },
+  "TenGigE0/7/0/18": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS21240G1J"
+  },
+  "TenGigE0/7/0/19": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "AVD2113K3T4"
+  },
+  "TenGigE0/7/0/20": {
+    "PID": "SFP-10GLR-31",
+    "Serial": "G1807343510"
+  },
+  "TenGigE0/7/0/21": {
+    "PID": "SFP-10GLR-31",
+    "Serial": "G1807343512"
+  },
+  "TenGigE0/7/0/22": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20360UC3"
+  },
+  "TenGigE0/7/0/23": {
+    "PID": "SFP-10G-LR-S",
+    "Serial": "FNS20360SR4"
+  },
+  "GigabitEthernet100/0/0/0": {
+    "PID": "Invalid",
+    "Serial": "FNS14230HS4"
+  },
+  "GigabitEthernet100/0/0/1": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "FNS18272Y4S"
+  },
+  "GigabitEthernet100/0/0/2": {
+    "PID": "Invalid",
+    "Serial": "FNS13290M45"
+  },
+  "GigabitEthernet100/0/0/3": {
+    "PID": "Invalid",
+    "Serial": "FNS142302MU"
+  },
+  "GigabitEthernet100/0/0/4": {
+    "PID": "SFP-GE-S,",
+    "Serial": "AGM1413P3KA"
+  },
+  "GigabitEthernet100/0/0/5": {
+    "PID": "SFP-GE-T,",
+    "Serial": "MTC2029024D"
+  },
+  "GigabitEthernet100/0/0/6": {
+    "PID": "N/A,",
+    "Serial": "AGC1216U4KZ"
+  },
+  "GigabitEthernet100/0/0/7": {
+    "PID": "SFP-GE-S,",
+    "Serial": "FNS12210VML"
+  },
+  "GigabitEthernet100/0/0/8": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "FNS182701L9"
+  },
+  "GigabitEthernet100/0/0/9": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "OPM22180TNL"
+  },
+  "GigabitEthernet100/0/0/10": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "OPM22200NQ3"
+  },
+  "GigabitEthernet100/0/0/11": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "OPM22200NHG"
+  },
+  "GigabitEthernet100/0/0/12": {
+    "PID": "SFP-GE-S,",
+    "Serial": "FNS11510N8G"
+  },
+  "GigabitEthernet100/0/0/13": {
+    "PID": "GLC-SX-MMD,",
+    "Serial": "FNS22300MAD"
+  },
+  "GigabitEthernet100/0/0/20": {
+    "PID": "Invalid",
+    "Serial": "FNS142301KV"
+  },
+  "GigabitEthernet100/0/0/24": {
+    "PID": "Invalid",
+    "Serial": "FNS10391AE0"
+  },
+  "GigabitEthernet100/0/0/26": {
+    "PID": "SFP-10G-LR-S,",
+    "Serial": "ONT1914015H"
+  },
+  "GigabitEthernet100/0/0/32": {
+    "PID": "SFP-10G-LR-S,",
+    "Serial": "ONT191502FC"
+  },
+  "GigabitEthernet100/0/0/34": {
+    "PID": "SFP-10G-LR-S,",
+    "Serial": "AVD1947T095"
+  }
+}

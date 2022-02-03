@@ -1,0 +1,172 @@
+{
+  "MgmtEth0/RSP0/CPU0/0": {
+    "Next-Hop": "192.82.111.106",
+    "State": "Dynamic",
+    "MAC": "00d6.fee7.0220"
+  },
+  "Bundle-Ether27.2312": {
+    "Next-Hop": "137.164.11.98",
+    "State": "Dynamic",
+    "MAC": "008a.96b6.8c8f"
+  },
+  "HundredGigE0/3/0/0": {
+    "Next-Hop": "137.164.35.9",
+    "State": "Dynamic",
+    "MAC": "d818.d311.0813"
+  },
+  "Bundle-Ether31.2316": {
+    "Next-Hop": "137.164.11.107",
+    "State": "Dynamic",
+    "MAC": "10f3.1132.324e"
+  },
+  "HundredGigE0/5/0/1": {
+    "Next-Hop": "137.164.23.79",
+    "State": "Dynamic",
+    "MAC": "2899.3a27.f96b"
+  },
+  "TenGigE0/7/0/1.342": {
+    "Next-Hop": "137.164.1.13",
+    "State": "Dynamic",
+    "MAC": "b026.8010.e1f8"
+  },
+  "TenGigE0/7/0/1.130": {
+    "Next-Hop": "137.164.1.27",
+    "State": "Dynamic",
+    "MAC": "00c1.6413.dfc6"
+  },
+  "GigabitEthernet100/0/0/9": {
+    "Next-Hop": "137.164.1.33",
+    "State": "Dynamic",
+    "MAC": "6cb2.aec5.b882"
+  },
+  "GigabitEthernet100/0/0/11": {
+    "Next-Hop": "137.164.1.245",
+    "State": "Dynamic",
+    "MAC": "84b2.61cc.1e02"
+  },
+  "TenGigE0/7/0/18.348": {
+    "Next-Hop": "137.164.3.15",
+    "State": "Dynamic",
+    "MAC": "b033.a667.743f"
+  },
+  "GigabitEthernet100/0/0/8": {
+    "Next-Hop": "137.164.3.245",
+    "State": "Dynamic",
+    "MAC": "84b2.61da.c703"
+  },
+  "GigabitEthernet100/0/0/13.10": {
+    "Next-Hop": "137.164.18.171",
+    "State": "Dynamic",
+    "MAC": "7001.b5cd.fda0"
+  },
+  "TenGigE0/7/0/11.10": {
+    "Next-Hop": "137.164.20.164",
+    "State": "Dynamic",
+    "MAC": "006c.bcfd.4f40"
+  },
+  "TenGigE0/7/0/13.229": {
+    "Next-Hop": "137.164.23.170",
+    "State": "Dynamic",
+    "MAC": "00c1.6441.284b"
+  },
+  "TenGigE0/7/0/6.230": {
+    "Next-Hop": "137.164.23.174",
+    "State": "Dynamic",
+    "MAC": "00c1.6441.286b"
+  },
+  "Bundle-Ether5.326": {
+    "Next-Hop": "137.164.24.130",
+    "State": "Dynamic",
+    "MAC": "c003.80ad.6147"
+  },
+  "GigabitEthernet100/0/0/13.32": {
+    "Next-Hop": "137.164.29.53",
+    "State": "Dynamic",
+    "MAC": "ac1f.6bd1.a1d1"
+  },
+  "GigabitEthernet100/0/0/13.29": {
+    "Next-Hop": "137.164.30.102",
+    "State": "Dynamic",
+    "MAC": "ac1f.6bd1.a1d0"
+  },
+  "TenGigE0/7/0/1.352": {
+    "Next-Hop": "137.164.32.37",
+    "State": "Dynamic",
+    "MAC": "b033.a666.4753"
+  },
+  "TenGigE0/7/0/7": {
+    "Next-Hop": "137.164.32.87",
+    "State": "Dynamic",
+    "MAC": "40ce.241a.6c44"
+  },
+  "TenGigE0/7/0/8": {
+    "Next-Hop": "137.164.32.183",
+    "State": "Dynamic",
+    "MAC": "e8a2.45a4.83eb"
+  },
+  "TenGigE0/7/0/1.353": {
+    "Next-Hop": "137.164.33.1",
+    "State": "Dynamic",
+    "MAC": "045c.6cb2.7a07"
+  },
+  "GigabitEthernet100/0/0/12": {
+    "Next-Hop": "137.164.33.201",
+    "State": "Dynamic",
+    "MAC": "5897.bdb3.0c02"
+  },
+  "GigabitEthernet100/0/0/5": {
+    "Next-Hop": "137.164.38.122",
+    "State": "Dynamic",
+    "MAC": "f872.ea1b.c020"
+  },
+  "TenGigE0/7/0/18.181": {
+    "Next-Hop": "137.164.41.116",
+    "State": "Dynamic",
+    "MAC": "f8a5.c500.fbee"
+  },
+  "TenGigE0/7/0/0.225": {
+    "Next-Hop": "137.164.42.217",
+    "State": "Dynamic",
+    "MAC": "e0ac.f150.1638"
+  },
+  "GigabitEthernet100/0/0/0": {
+    "Next-Hop": "137.164.42.221",
+    "State": "Dynamic",
+    "MAC": "286f.7ffd.d002"
+  },
+  "TenGigE0/7/0/0.213": {
+    "Next-Hop": "137.164.44.35",
+    "State": "Dynamic",
+    "MAC": "0062.ec3c.97ec"
+  },
+  "TenGigE0/7/0/0.224": {
+    "Next-Hop": "137.164.44.44",
+    "State": "Dynamic",
+    "MAC": "9818.885d.6cd1"
+  },
+  "TenGigE0/7/0/0.222": {
+    "Next-Hop": "137.164.44.51",
+    "State": "Dynamic",
+    "MAC": "002a.10d7.18f9"
+  },
+  "TenGigE0/7/0/17": {
+    "Next-Hop": "137.164.50.127",
+    "State": "Dynamic",
+    "MAC": "10f3.1108.b4af"
+  },
+  "TenGigE0/7/0/11.19": {
+    "Next-Hop": "137.164.58.229",
+    "State": "Dynamic",
+    "MAC": "3cec.ef1a.4ed0"
+  },
+  "TenGigE0/7/0/11.20": {
+    "Next-Hop": "137.164.58.235",
+    "State": "Dynamic",
+    "MAC": "3cec.ef17.fe14"
+  },
+  "GigabitEthernet100/0/0/4": {
+    "Next-Hop": "198.189.255.100",
+    "State": "Dynamic",
+    "MAC": "0003.18c9.add0"
+  }
+}

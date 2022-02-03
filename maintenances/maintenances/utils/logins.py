@@ -33,6 +33,16 @@ class Login:
         )
         return jira
 
+    def napalm_connect_test(self):
+        driver = get_network_driver("iosxr")
+        connection = driver(
+            hostname='137.164.84.240',
+            username='cenic',
+            password='cenic',
+            timeout=300,
+        )
+        return connection
+
     def napalm_connect(self, hostname, device_type):
         """Returns NAPALM object, uses MFA credentials."""
         driver = get_network_driver(device_type)
@@ -40,6 +50,7 @@ class Login:
             hostname=hostname,
             username=self.mfa_user,
             password=self.mfa_pass + self.otp.now(),
+            timeout=300,
         )
         return connection
 
@@ -51,24 +62,3 @@ class Login:
             passwd=self.mfa_pass + self.otp.now(),
         )
         return connection
-
-    # def netmiko_connect(self, hostname, device_type):
-    #     """Returns Netmiko object, uses MFA credentials."""
-    #     connection = ConnectHandler(
-    #         device_type=device_type,
-    #         host=hostname,
-    #         username=self.mfa_user,
-    #         password=self.mfa_pass + self.otp.now(),
-    #     )
-    #     return connection
-
-    # def ncc_connect(self, hostname):
-    #     """Returns NCCLient object, uses MFA credentials."""
-    #     connection = manager.connect(
-    #         host=hostname,
-    #         username=self.mfa_user,
-    #         password=self.mfa_pass + self.otp.now(),
-    #         timeout=120,
-    #         hostkey_verify=False,
-    #     )
-    #     return connection

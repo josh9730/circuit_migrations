@@ -1,15 +1,16 @@
-"""
-Pending:
-    - Validating input in data.yaml fully
-
-"""
-
-
 import yaml
 import argparse
 
 from utils.checks import data_checks
-from lib.devices import *
+from lib.devices import IOSXRMain
+
+"""
+Pending:
+    - Validating input in data.yaml fully
+    - fix otp re-attempt
+    - mock testing
+    - napalm compliance testing
+"""
 
 
 def main(args):
@@ -20,11 +21,11 @@ def main(args):
     data_checks(data)
 
     if args.circuit_data:
-        device_type = data['device_type']
+        device_type = data["device_type"]
 
         if device_type == "iosxr":
-            circuit_data = MigrationInfoXR(data)
-            circuit_data.get_interfaces()
+            circuit_data = IOSXRMain(data).get_migration_data_full()
+            # circuit_data.get_interfaces()
 
 
 if __name__ == "__main__":

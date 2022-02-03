@@ -1,0 +1,121 @@
+{
+  "TenGigE0/7/0/0.225": {
+    "Hostname": "lr-ccd-3",
+    "System ID": "1371.6402.0090",
+    "Up": true,
+    "IPv4 NH": "137.164.42.217",
+    "IPv6 Topology": true
+  },
+  "GigabitEthernet100/0/0/12": {
+    "Hostname": "sha-hea-cc-1",
+    "System ID": "1371.6400.0026",
+    "Up": true,
+    "IPv4 NH": "137.164.33.201",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/8": {
+    "Hostname": "bg-cc-4",
+    "System ID": "1371.6400.2008",
+    "Up": true,
+    "IPv4 NH": "137.164.32.183",
+    "IPv6 Topology": true
+  },
+  "HundredGigE0/3/0/0": {
+    "Hostname": "sac-csu-2",
+    "System ID": "1371.6400.0030",
+    "Up": true,
+    "IPv4 NH": "137.164.35.9",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/18.348": {
+    "Hostname": "woo-cc-2",
+    "System ID": "1371.6400.0036",
+    "Up": true,
+    "IPv4 NH": "137.164.3.15",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/1.353": {
+    "Hostname": "lt-cc-3",
+    "System ID": "1371.6400.0054",
+    "Up": true,
+    "IPv4 NH": "137.164.33.1",
+    "IPv6 Topology": true
+  },
+  "Bundle-Ether31.2316": {
+    "Hostname": "tri-agg2",
+    "System ID": "1371.6401.6004",
+    "Up": true,
+    "IPv4 NH": "137.164.11.107",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/1.130": {
+    "Hostname": "cdu-1",
+    "System ID": "1371.6400.2138",
+    "Up": true,
+    "IPv4 NH": "137.164.1.27",
+    "IPv6 Topology": true
+  },
+  "GigabitEthernet100/0/0/9": {
+    "Hostname": "yub-ccdo-1",
+    "System ID": "1371.6403.9042",
+    "Up": true,
+    "IPv4 NH": "137.164.1.33",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/17": {
+    "Hostname": "but-coe-1",
+    "System ID": "1371.6403.9064",
+    "Up": true,
+    "IPv4 NH": "137.164.50.127",
+    "IPv6 Topology": true
+  },
+  "GigabitEthernet100/0/0/0": {
+    "Hostname": "csis2",
+    "System ID": "1371.6403.9234",
+    "Up": true,
+    "IPv4 NH": "137.164.42.221",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/1.342": {
+    "Hostname": "lt-usd-1",
+    "System ID": "1371.6400.0051",
+    "Up": true,
+    "IPv4 NH": "137.164.1.13",
+    "IPv6 Topology": true
+  },
+  "GigabitEthernet100/0/0/11": {
+    "Hostname": "yub-ccd-sut-1",
+    "System ID": "1371.6403.9220",
+    "Up": true,
+    "IPv4 NH": "137.164.1.245",
+    "IPv6 Topology": true
+  },
+  "Bundle-Ether27.2312": {
+    "Hostname": "oak-agg8",
+    "System ID": "1371.6401.6035",
+    "Up": true,
+    "IPv4 NH": "137.164.11.98",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/7": {
+    "Hostname": "gle-coe-1",
+    "System ID": "1371.6400.2187",
+    "Up": true,
+    "IPv4 NH": "137.164.32.87",
+    "IPv6 Topology": true
+  },
+  "TenGigE0/7/0/1.352": {
+    "Hostname": "sj-cc-3",
+    "System ID": "1371.6403.9165",
+    "Up": true,
+    "IPv4 NH": "137.164.32.37",
+    "IPv6 Topology": true
+  },
+  "GigabitEthernet100/0/0/8": {
+    "Hostname": "cccco-colo",
+    "System ID": "1371.6403.9172",
+    "Up": true,
+    "IPv4 NH": "137.164.3.245",
+    "IPv6 Topology": true
+  }
+}
