@@ -5,6 +5,7 @@ import subprocess
 import socket
 
 from utils.logins import Login
+from utils.gsheets import GSheets
 
 
 import pandas as pd
@@ -22,6 +23,7 @@ class IOSXRMain:
             data["hostname"]
         )  # using hostname breaks on XR
         self.device_type = data["device_type"]
+        self.data = data
         logins = Login()
 
         # # retry login once if MFA fails
@@ -43,9 +45,6 @@ class IOSXRMain:
                 "\n\nConnection not established, wait 30s and re-try.\n"
             )
 
-    def gsheets_dump(self):
-        pass
-
     def collapse_bgp(self, iface_dict, bgp_dict):
         """Collapse BGP dictionary onto the consolidated interface dictionary.
 
@@ -59,8 +58,8 @@ class IOSXRMain:
             v4_neighbor, v6_neighbor = None, None
 
             # iBGP
-            if iface_dict[iface].get("IS-IS Neighbor"):
-                isis_neighbor = iface_dict[iface]["IS-IS Neighbor"]
+            if iface_dict[iface].get("isis_neighbor"):
+                isis_neighbor = iface_dict[iface]["isis_neighbor"]
                 v4_neighbor = socket.gethostbyname(isis_neighbor)
                 try:
                     v6_neighbor = socket.getaddrinfo(
@@ -70,10 +69,10 @@ class IOSXRMain:
                     print(f"{iface_dict} has no IPv6 Neighbor.")
 
             # eBGP
-            elif iface_dict[iface].get("ARP NH"):
-                v4_neighbor = iface_dict[iface]["ARP NH"]
-                if iface_dict[iface].get("ND NH"):
-                    v6_neighbor = iface_dict[iface]["ND NH"]
+            elif iface_dict[iface].get("arp_nh"):
+                v4_neighbor = iface_dict[iface]["arp_nh"]
+                if iface_dict[iface].get("nd_nh"):
+                    v6_neighbor = iface_dict[iface]["nd_nh"]
 
             # update interface dict with BGP keys
             if v4_neighbor and bgp_peers.get(v4_neighbor):
@@ -141,7 +140,6 @@ class IOSXRMain:
 
         Typically for planning router refreshes
         """
-
         interfaces_all = self.napalm_connection.get_interfaces()
         ip_interfaces = self.format_ip_int(self.napalm_connection.get_interfaces_ip())
         optics = self.napalm_connection.get_optics_inventory()
@@ -163,28 +161,21 @@ class IOSXRMain:
             {interfaces[k].update(v) for (k, v) in i.items() if interfaces.get(k)}
         bgp_missing_int = self.collapse_bgp(interfaces, bgp)
 
-        from pprint import pprint
-        pprint(bgp_missing_int)
+        # with open("outputs/comb_dict2.json", "w") as f:
+        #     json.dump(interfaces, f, indent=2)
 
-        with open("outputs/comb_dict2.json", "w") as f:
-            json.dump(interfaces, f, indent=2)
+        # with open('outputs/bgp_missing_int.json', 'w') as f:
+        #     json.dump(bgp_missing_int, f, indent=2)
 
         self.napalm_connection.close()
+
+        GSheets(self.data).dump_circuits_all(interfaces, bgp_missing_int)
 
 
 class MigrationInfoXR(IOSXRMain):
     """ """
 
-    def get_interfaces(self):
-        # ip_interfaces = self.napalm_connection.get_interfaces_ip()
-        # interaces = self.napalm_connection.get_interfaces()
-        # bgp = self.napalm_connection.get_bgp_neighbors()
-        from pprint import pprint
-
-        # pprint(bgp)
-        print(self.napalm_connection.get_my_custom_method())
-
-        self.napalm_connection.close()
+    pass
 
 
 # class DeviceXR(IOSXR):

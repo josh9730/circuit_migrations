@@ -1,4 +1,9 @@
 ---
+# pygsheets vars
+folder_id: 1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu
+sheet_title: CSAC MX10K Migration
+
+
 ticket: NOC-600000
 
 ### Circuits

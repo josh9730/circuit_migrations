@@ -21,10 +21,10 @@ class CustomIOSXRDriver(IOSXRDriver):
 
         isis_neighbors = {}
         ISIS_DEFAULTS = {
-            "IS-IS Neighbor": "",
-            "IS-IS State": False,
-            "IS-IS NH": "",
-            "IS-IS IPv6": False,
+            "isis_neighbor": "",
+            "isis_state": False,
+            "isis_nh": "",
+            "isis_ipv6": False,
         }
 
         isis_rpc_request = "<Get><Operational><ISIS><InstanceTable><Instance><Naming>\
@@ -62,10 +62,10 @@ class CustomIOSXRDriver(IOSXRDriver):
             isis_neighbors[interface] = copy.deepcopy(ISIS_DEFAULTS)
             isis_neighbors[interface].update(
                 {
-                    "IS-IS Neighbor": host,
-                    "IS-IS State": is_up,
-                    "IS-IS NH": ipv4,
-                    "IS-IS IPv6": ipv6_top,
+                    "isis_neighbor": host,
+                    "isis_state": is_up,
+                    "isis_nh": ipv4,
+                    "isis_ipv6": ipv6_top,
                 }
             )
         return isis_neighbors
@@ -81,8 +81,8 @@ class CustomIOSXRDriver(IOSXRDriver):
 
         arp_table = {}
         ARP_DEFAULTS = {
-            "ARP NH": "",
-            "ARP NH MAC": "",
+            "arp_nh": "",
+            "arp_nh_mac": "",
         }
 
         for entry in rpc_reply.xpath(".//EntryTable/Entry"):
@@ -98,8 +98,8 @@ class CustomIOSXRDriver(IOSXRDriver):
             arp_table[interface] = copy.deepcopy(ARP_DEFAULTS)
             arp_table[interface].update(
                 {
-                    "ARP NH": next_hop,
-                    "ARP NH MAC": str(mac),
+                    "arp_nh": next_hop,
+                    "arp_nh_mac": str(mac),
                 }
             )
         return arp_table
@@ -129,15 +129,15 @@ class CustomIOSXRDriver(IOSXRDriver):
                 self.nd_table[port] = copy.deepcopy(self.ND_DEFAULTS)
                 self.nd_table[port].update(
                     {
-                        "ND NH": neighbor[0],
-                        "ND MAC": neighbor[1],
+                        "nd_nh": neighbor[0],
+                        "nd_mac": neighbor[1],
                     }
                 )
 
         self.nd_table = {}
         self.ND_DEFAULTS = {
-            "ND NH": "",
-            "ND MAC": "",
+            "nd_nh": "",
+            "nd_mac": "",
         }
 
         command = 'show ipv6 neighbors | ex "fe80|Mcast"'
@@ -165,8 +165,8 @@ class CustomIOSXRDriver(IOSXRDriver):
 
         optics = {}
         OPTICS_DEFAULTS = {
-            "Optic": "",
-            "Optic Serial": "",
+            "optic": "",
+            "optic_serial": "",
         }
 
         command = r'show inventory | util egrep -A1 "[0-9]{1,3}\/[0-9]{1}\/(([0-9]{1})|(CPU)[0-9]{1})\/[0-9]{1,2}"'
@@ -187,8 +187,8 @@ class CustomIOSXRDriver(IOSXRDriver):
             optics[port] = copy.deepcopy(OPTICS_DEFAULTS)
             optics[port].update(
                 {
-                    "Optic": optic_list[1],
-                    "Optic Serial": optic_list[2],
+                    "optic": optic_list[1],
+                    "optic_serial": optic_list[2],
                 }
             )
         return optics
