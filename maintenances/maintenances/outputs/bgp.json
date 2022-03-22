@@ -8,12 +8,12 @@
         "description": "akamai AS21357 - SAC-CPP",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 562100,
+        "uptime": 2220329,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 7877
+            "sent_prefixes": 6641
           }
         }
       },
@@ -24,12 +24,12 @@
         "description": "teh-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8597026,
+        "uptime": 12665080,
         "address_family": {
           "ipv4": {
             "received_prefixes": 9,
             "accepted_prefixes": 9,
-            "sent_prefixes": 96166599
+            "sent_prefixes": 148603126
           }
         }
       },
@@ -40,12 +40,12 @@
         "description": "sha-hea-cc-1, Shasta CC Health Sciences campus",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3005719,
+        "uptime": 7073772,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 29463385
+            "sent_prefixes": 81899912
           }
         }
       },
@@ -56,12 +56,12 @@
         "description": "sha-hsc-cc-2 Shasta CC Health Sciences",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3005724,
+        "uptime": 7073777,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 29463385
+            "sent_prefixes": 81899912
           }
         }
       },
@@ -72,12 +72,12 @@
         "description": "sac-csu-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 13140991,
+        "uptime": 3384767,
         "address_family": {
           "ipv4": {
             "received_prefixes": 23,
             "accepted_prefixes": 23,
-            "sent_prefixes": 152250697
+            "sent_prefixes": 45464705
           }
         }
       },
@@ -88,12 +88,12 @@
         "description": "yub-cc-4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 7384676,
+        "uptime": 11452729,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 77643923
+            "sent_prefixes": 130080450
           }
         }
       },
@@ -104,12 +104,12 @@
         "description": "yub-cc-5",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10496849,
+        "uptime": 14564902,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 123038279
+            "sent_prefixes": 175474806
           }
         }
       },
@@ -120,12 +120,12 @@
         "description": "woo-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8596828,
+        "uptime": 12664881,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 96164936
+            "sent_prefixes": 148601463
           }
         }
       },
@@ -136,12 +136,12 @@
         "description": "woo-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 9198131,
+        "uptime": 13266184,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 103108163
+            "sent_prefixes": 155544690
           }
         }
       },
@@ -184,12 +184,12 @@
         "description": "tt-usd-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 418230,
+        "uptime": 79417,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 6225928
+            "sent_prefixes": 1792297
           }
         }
       },
@@ -200,12 +200,12 @@
         "description": "lt-usd-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 156615,
+        "uptime": 107715,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 3233504
+            "sent_prefixes": 2043670
           }
         }
       },
@@ -216,12 +216,12 @@
         "description": "lt-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4161880,
+        "uptime": 8229933,
         "address_family": {
           "ipv4": {
             "received_prefixes": 4,
             "accepted_prefixes": 4,
-            "sent_prefixes": 39704781
+            "sent_prefixes": 92141308
           }
         }
       },
@@ -232,12 +232,12 @@
         "description": "lt-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4161816,
+        "uptime": 8229869,
         "address_family": {
           "ipv4": {
             "received_prefixes": 4,
             "accepted_prefixes": 4,
-            "sent_prefixes": 39704326
+            "sent_prefixes": 92140853
           }
         }
       },
@@ -248,12 +248,12 @@
         "description": "sj-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10496490,
+        "uptime": 14564543,
         "address_family": {
           "ipv4": {
             "received_prefixes": 11,
             "accepted_prefixes": 11,
-            "sent_prefixes": 123034955
+            "sent_prefixes": 175471482
           }
         }
       },
@@ -264,12 +264,12 @@
         "description": "sj-cc-trk-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 36436,
+        "uptime": 230880,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 1356825
+            "sent_prefixes": 3295600
           }
         }
       },
@@ -280,12 +280,12 @@
         "description": "sj-cc-trk-ctr-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 36425,
+        "uptime": 570269,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 1356860
+            "sent_prefixes": 8256654
           }
         }
       },
@@ -296,12 +296,12 @@
         "description": "wnv-cnty-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3031646,
+        "uptime": 7099699,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 29657504
+            "sent_prefixes": 82094031
           }
         }
       },
@@ -312,12 +312,12 @@
         "description": "wnv-cnty-ctr-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3031646,
+        "uptime": 7099699,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 29657504
+            "sent_prefixes": 82094031
           }
         }
       },
@@ -328,12 +328,12 @@
         "description": "sj-cc-rose-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4074135,
+        "uptime": 230878,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 38844927
+            "sent_prefixes": 3295600
           }
         }
       },
@@ -344,12 +344,12 @@
         "description": "sj-cc-rose-ctr-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 36429,
+        "uptime": 536143,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 1356860
+            "sent_prefixes": 7729921
           }
         }
       },
@@ -360,12 +360,12 @@
         "description": "TRI-COE-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 16139982,
+        "uptime": 68302,
         "address_family": {
           "ipv4": {
             "received_prefixes": 9,
             "accepted_prefixes": 9,
-            "sent_prefixes": 190588041
+            "sent_prefixes": 1690860
           }
         }
       },
@@ -376,12 +376,12 @@
         "description": "bg-cc-4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8596840,
+        "uptime": 12664893,
         "address_family": {
           "ipv4": {
             "received_prefixes": 15,
             "accepted_prefixes": 15,
-            "sent_prefixes": 96164887
+            "sent_prefixes": 148601414
           }
         }
       },
@@ -392,12 +392,12 @@
         "description": "lr-ccd-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 56069703,
+        "uptime": 60137757,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 619677069
+            "sent_prefixes": 672076023
           }
         }
       },
@@ -408,12 +408,12 @@
         "description": "yub-ccdo-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11673135,
+        "uptime": 999867,
         "address_family": {
           "ipv4": {
             "received_prefixes": 2,
             "accepted_prefixes": 2,
-            "sent_prefixes": 137075292
+            "sent_prefixes": 13809687
           }
         }
       },
@@ -424,12 +424,12 @@
         "description": "yol-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 644883,
+        "uptime": 1017562,
         "address_family": {
           "ipv4": {
             "received_prefixes": 7,
             "accepted_prefixes": 7,
-            "sent_prefixes": 9512482
+            "sent_prefixes": 14029184
           }
         }
       },
@@ -440,12 +440,12 @@
         "description": "cdu-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 111007681,
+        "uptime": 115075735,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 878223720
+            "sent_prefixes": 930622674
           }
         }
       },
@@ -456,12 +456,12 @@
         "description": "gle-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10446256,
+        "uptime": 14514309,
         "address_family": {
           "ipv4": {
             "received_prefixes": 8,
             "accepted_prefixes": 8,
-            "sent_prefixes": 122219498
+            "sent_prefixes": 174618452
           }
         }
       },
@@ -472,12 +472,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4085344,
+        "uptime": 1009948,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 522
+            "sent_prefixes": 284
           }
         }
       },
@@ -488,12 +488,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 46011051,
+        "uptime": 50079104,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 6965
+            "sent_prefixes": 7255
           }
         }
       },
@@ -504,12 +504,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 42671645,
+        "uptime": 46739698,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 6541
+            "sent_prefixes": 6831
           }
         }
       },
@@ -520,12 +520,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 53696273,
+        "uptime": 57764326,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 289,
-            "accepted_prefixes": 289,
-            "sent_prefixes": 8155
+            "received_prefixes": 278,
+            "accepted_prefixes": 278,
+            "sent_prefixes": 8445
           }
         }
       },
@@ -536,12 +536,12 @@
         "description": "DC:lax-agg10",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 1302758,
+        "uptime": 5370811,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 700407,
-            "accepted_prefixes": 700407,
-            "sent_prefixes": 256
+            "received_prefixes": 705741,
+            "accepted_prefixes": 705741,
+            "sent_prefixes": 546
           }
         }
       },
@@ -552,12 +552,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11699275,
+        "uptime": 15767329,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 167690,
-            "accepted_prefixes": 167690,
-            "sent_prefixes": 1321
+            "received_prefixes": 162717,
+            "accepted_prefixes": 162717,
+            "sent_prefixes": 1611
           }
         }
       },
@@ -568,12 +568,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8502979,
+        "uptime": 12571032,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 165349,
-            "accepted_prefixes": 165349,
-            "sent_prefixes": 885
+            "received_prefixes": 160191,
+            "accepted_prefixes": 160191,
+            "sent_prefixes": 1175
           }
         }
       },
@@ -584,12 +584,12 @@
         "description": "DC:svl-agg10",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 12139656,
+        "uptime": 16207710,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 691137,
-            "accepted_prefixes": 691137,
-            "sent_prefixes": 1384
+            "received_prefixes": 705457,
+            "accepted_prefixes": 705457,
+            "sent_prefixes": 1674
           }
         }
       },
@@ -600,12 +600,12 @@
         "description": "DC:slo-agg4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4352454,
+        "uptime": 8420507,
         "address_family": {
           "ipv4": {
             "received_prefixes": 62,
             "accepted_prefixes": 62,
-            "sent_prefixes": 582
+            "sent_prefixes": 872
           }
         }
       },
@@ -616,12 +616,12 @@
         "description": "riv-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 15683716,
+        "uptime": 19751769,
         "address_family": {
           "ipv4": {
             "received_prefixes": 529,
             "accepted_prefixes": 529,
-            "sent_prefixes": 1824
+            "sent_prefixes": 2114
           }
         }
       },
@@ -632,12 +632,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 86582,
+        "uptime": 4154636,
         "address_family": {
           "ipv4": {
             "received_prefixes": 293,
             "accepted_prefixes": 293,
-            "sent_prefixes": 215
+            "sent_prefixes": 505
           }
         }
       },
@@ -648,12 +648,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 53909468,
+        "uptime": 57977521,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 240,
-            "accepted_prefixes": 240,
-            "sent_prefixes": 8227
+            "received_prefixes": 241,
+            "accepted_prefixes": 241,
+            "sent_prefixes": 8517
           }
         }
       },
@@ -664,12 +664,12 @@
         "description": "tus-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 7377061,
+        "uptime": 11445115,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 583,
-            "accepted_prefixes": 583,
-            "sent_prefixes": 822
+            "received_prefixes": 575,
+            "accepted_prefixes": 575,
+            "sent_prefixes": 1112
           }
         }
       },
@@ -680,12 +680,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 113049193,
+        "uptime": 117117246,
         "address_family": {
           "ipv4": {
             "received_prefixes": 82,
             "accepted_prefixes": 82,
-            "sent_prefixes": 11782
+            "sent_prefixes": 12072
           }
         }
       },
@@ -696,12 +696,12 @@
         "description": "DC:pdc-agg1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20092932,
+        "uptime": 24160985,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 41,
-            "accepted_prefixes": 41,
-            "sent_prefixes": 2478
+            "received_prefixes": 42,
+            "accepted_prefixes": 42,
+            "sent_prefixes": 2768
           }
         }
       },
@@ -712,12 +712,12 @@
         "description": "bak-agg6 loop0",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4291078,
+        "uptime": 8359131,
         "address_family": {
           "ipv4": {
             "received_prefixes": 109,
             "accepted_prefixes": 109,
-            "sent_prefixes": 568
+            "sent_prefixes": 858
           }
         }
       },
@@ -728,12 +728,12 @@
         "description": "oak-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 9797580,
+        "uptime": 13865633,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 160227,
-            "accepted_prefixes": 160227,
-            "sent_prefixes": 1105
+            "received_prefixes": 167387,
+            "accepted_prefixes": 167387,
+            "sent_prefixes": 1395
           }
         }
       },
@@ -744,12 +744,12 @@
         "description": "DC:cor-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20176473,
+        "uptime": 24244526,
         "address_family": {
           "ipv4": {
             "received_prefixes": 78,
             "accepted_prefixes": 78,
-            "sent_prefixes": 2481
+            "sent_prefixes": 2771
           }
         }
       },
@@ -760,12 +760,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20178099,
+        "uptime": 24246152,
         "address_family": {
           "ipv4": {
             "received_prefixes": 41,
             "accepted_prefixes": 41,
-            "sent_prefixes": 2481
+            "sent_prefixes": 2771
           }
         }
       },
@@ -776,12 +776,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 51883661,
+        "uptime": 55951714,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 170,
-            "accepted_prefixes": 170,
-            "sent_prefixes": 7991
+            "received_prefixes": 171,
+            "accepted_prefixes": 171,
+            "sent_prefixes": 8281
           }
         }
       },
@@ -792,7 +792,7 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 72535503,
+        "uptime": 76603556,
         "address_family": {
           "ipv4": {
             "received_prefixes": 26,
@@ -804,16 +804,16 @@
       "137.164.23.79": {
         "local_as": 2152,
         "remote_as": 395226,
-        "remote_id": "207.166.51.14",
+        "remote_id": "0.0.0.0",
         "description": "SACCOE",
         "is_enabled": false,
-        "is_up": true,
-        "uptime": 4279862,
+        "is_up": false,
+        "uptime": -1,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 15,
-            "accepted_prefixes": 11,
-            "sent_prefixes": 22619243
+            "received_prefixes": 0,
+            "accepted_prefixes": 0,
+            "sent_prefixes": 0
           }
         }
       },
@@ -824,12 +824,12 @@
         "description": "CDT California Department of Technology Governmental SFI AS1226 - SAC-GOVSFI",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 28077689,
+        "uptime": 32145742,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 1,
+            "received_prefixes": 2,
             "accepted_prefixes": 0,
-            "sent_prefixes": 45
+            "sent_prefixes": 49
           }
         }
       },
@@ -840,12 +840,12 @@
         "description": "CDT California Department of Technology Governmental SFI AS1226 - SAC-GOVSFI",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8679436,
+        "uptime": 12747490,
         "address_family": {
           "ipv4": {
-            "received_prefixes": 1,
+            "received_prefixes": 4,
             "accepted_prefixes": 0,
-            "sent_prefixes": 1
+            "sent_prefixes": 5
           }
         }
       },
@@ -856,12 +856,12 @@
         "description": "UC Davis Medical Center",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8039688,
+        "uptime": 12107742,
         "address_family": {
           "ipv4": {
             "received_prefixes": 5,
             "accepted_prefixes": 5,
-            "sent_prefixes": 41842509
+            "sent_prefixes": 65220598
           }
         }
       },
@@ -872,12 +872,12 @@
         "description": "OTECH_AT_CSAC (ATT-CSU via CSU3402A)",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 72535272,
+        "uptime": 76603325,
         "address_family": {
           "ipv4": {
             "received_prefixes": 188,
             "accepted_prefixes": 3,
-            "sent_prefixes": 17714
+            "sent_prefixes": 19504
           }
         }
       },
@@ -888,12 +888,12 @@
         "description": "sha-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 12605568,
+        "uptime": 16673621,
         "address_family": {
           "ipv4": {
             "received_prefixes": 5,
             "accepted_prefixes": 5,
-            "sent_prefixes": 148032085
+            "sent_prefixes": 200468612
           }
         }
       },
@@ -904,12 +904,12 @@
         "description": "tri-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11203486,
+        "uptime": 436322,
         "address_family": {
           "ipv4": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 131853589
+            "sent_prefixes": 6625602
           }
         }
       },
@@ -920,12 +920,12 @@
         "description": "sha-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8658893,
+        "uptime": 12726946,
         "address_family": {
           "ipv4": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 96803371
+            "sent_prefixes": 149202325
           }
         }
       },
@@ -936,12 +936,12 @@
         "description": "yub-ccdo-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11673132,
+        "uptime": 999861,
         "address_family": {
           "ipv4": {
             "received_prefixes": 2,
             "accepted_prefixes": 2,
-            "sent_prefixes": 137075292
+            "sent_prefixes": 13809635
           }
         }
       },
@@ -952,12 +952,12 @@
         "description": "but-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 18583792,
+        "uptime": 22651846,
         "address_family": {
           "ipv4": {
             "received_prefixes": 21,
             "accepted_prefixes": 21,
-            "sent_prefixes": 220219775
+            "sent_prefixes": 272618729
           }
         }
       },
@@ -968,12 +968,12 @@
         "description": "yub-ccd-sut-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4731721,
+        "uptime": 8799774,
         "address_family": {
           "ipv4": {
             "received_prefixes": 2,
             "accepted_prefixes": 2,
-            "sent_prefixes": 46118639
+            "sent_prefixes": 98555166
           }
         }
       },
@@ -1000,12 +1000,12 @@
         "description": "cccco-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11830105,
+        "uptime": 15898158,
         "address_family": {
           "ipv4": {
             "received_prefixes": 4,
             "accepted_prefixes": 4,
-            "sent_prefixes": 138415156
+            "sent_prefixes": 190851683
           }
         }
       },
@@ -1016,12 +1016,12 @@
         "description": "sj-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8582877,
+        "uptime": 12650930,
         "address_family": {
           "ipv4": {
             "received_prefixes": 11,
             "accepted_prefixes": 11,
-            "sent_prefixes": 95990117
+            "sent_prefixes": 148426644
           }
         }
       },
@@ -1032,12 +1032,12 @@
         "description": "cccco-colo",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8607445,
+        "uptime": 12675498,
         "address_family": {
           "ipv4": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 96336686
+            "sent_prefixes": 148773213
           }
         }
       },
@@ -1048,12 +1048,12 @@
         "description": "yub-ccd-sut-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4731721,
+        "uptime": 8799774,
         "address_family": {
           "ipv4": {
             "received_prefixes": 2,
             "accepted_prefixes": 2,
-            "sent_prefixes": 46118639
+            "sent_prefixes": 98555166
           }
         }
       },
@@ -1064,12 +1064,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 22965187,
+        "uptime": 27033240,
         "address_family": {
           "ipv4": {
             "received_prefixes": 4,
             "accepted_prefixes": 4,
-            "sent_prefixes": 266571233
+            "sent_prefixes": 319007760
           }
         }
       },
@@ -1080,12 +1080,28 @@
         "description": "CSU Chico",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3155643,
+        "uptime": 7223696,
         "address_family": {
           "ipv4": {
             "received_prefixes": 26,
             "accepted_prefixes": 26,
             "sent_prefixes": 1
+          }
+        }
+      },
+      "207.166.50.251": {
+        "local_as": 2152,
+        "remote_as": 395226,
+        "remote_id": "207.166.51.14",
+        "description": "SACCOE",
+        "is_enabled": false,
+        "is_up": true,
+        "uptime": 3730724,
+        "address_family": {
+          "ipv4": {
+            "received_prefixes": 16,
+            "accepted_prefixes": 10,
+            "sent_prefixes": 22792051
           }
         }
       },
@@ -1096,12 +1112,12 @@
         "description": "teh-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8596992,
+        "uptime": 12665045,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 62813527
+            "sent_prefixes": 95940854
           }
         }
       },
@@ -1112,12 +1128,12 @@
         "description": "sha-hsc-cc-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3005724,
+        "uptime": 7073777,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 16149120
+            "sent_prefixes": 49276447
           }
         }
       },
@@ -1128,12 +1144,12 @@
         "description": "sha-hea-cc-2, Shasta CC - Health Sciences",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3005706,
+        "uptime": 7073759,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 16149093
+            "sent_prefixes": 49276420
           }
         }
       },
@@ -1144,12 +1160,12 @@
         "description": "sac-csu-2-v6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 13140973,
+        "uptime": 3388029,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 103171163
+            "sent_prefixes": 29171671
           }
         }
       },
@@ -1160,12 +1176,12 @@
         "description": "yub-cc-4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 7384669,
+        "uptime": 11452722,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 51861664
+            "sent_prefixes": 84988991
           }
         }
       },
@@ -1176,12 +1192,12 @@
         "description": "yub-cc-5",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10496852,
+        "uptime": 14564905,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 79700357
+            "sent_prefixes": 112827684
           }
         }
       },
@@ -1192,12 +1208,12 @@
         "description": "woo-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8596816,
+        "uptime": 12664870,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 62812701
+            "sent_prefixes": 95940029
           }
         }
       },
@@ -1208,12 +1224,12 @@
         "description": "woo-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 9198147,
+        "uptime": 13266200,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 67222287
+            "sent_prefixes": 100349615
           }
         }
       },
@@ -1256,12 +1272,12 @@
         "description": "tt-usd-1-v6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 399987,
+        "uptime": 767959,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 2716455
+            "sent_prefixes": 4431375
           }
         }
       },
@@ -1272,12 +1288,12 @@
         "description": "lt-usd-1-v6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 201209,
+        "uptime": 260420,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 1307023
+            "sent_prefixes": 1519276
           }
         }
       },
@@ -1288,12 +1304,12 @@
         "description": "lt-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4161870,
+        "uptime": 8229924,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 22034467
+            "sent_prefixes": 55161795
           }
         }
       },
@@ -1304,12 +1320,12 @@
         "description": "lt-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4161827,
+        "uptime": 3092562,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 22034265
+            "sent_prefixes": 27346521
           }
         }
       },
@@ -1320,12 +1336,12 @@
         "description": "sj-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10496484,
+        "uptime": 14564537,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 79696855
+            "sent_prefixes": 112824183
           }
         }
       },
@@ -1336,12 +1352,12 @@
         "description": "sj-cc-trk-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 1878418,
+        "uptime": 927679,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 10541156
+            "sent_prefixes": 5388502
           }
         }
       },
@@ -1352,12 +1368,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3264167,
+        "uptime": 2886048,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 17474730
+            "sent_prefixes": 24568056
           }
         }
       },
@@ -1368,12 +1384,12 @@
         "description": "wnv-cnty-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 1047878,
+        "uptime": 5115931,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 6288678
+            "sent_prefixes": 39416006
           }
         }
       },
@@ -1384,12 +1400,12 @@
         "description": "wnv-cnty-ctr-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 440040,
+        "uptime": 4508093,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 2913284
+            "sent_prefixes": 36040612
           }
         }
       },
@@ -1400,12 +1416,12 @@
         "description": "sj-cc-rose-ctr-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 7822198,
+        "uptime": 217668,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 55283146
+            "sent_prefixes": 1279922
           }
         }
       },
@@ -1416,12 +1432,12 @@
         "description": "sj-cc-rose-ctr-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 9632277,
+        "uptime": 563878,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 70823146
+            "sent_prefixes": 3207081
           }
         }
       },
@@ -1432,12 +1448,12 @@
         "description": "tri-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 1891733,
+        "uptime": 3659957,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 10601472
+            "sent_prefixes": 30724430
           }
         }
       },
@@ -1448,12 +1464,12 @@
         "description": "bg-cc-4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8596835,
+        "uptime": 12664889,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 62812731
+            "sent_prefixes": 95940059
           }
         }
       },
@@ -1464,12 +1480,12 @@
         "description": "lr-ccd-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 56069703,
+        "uptime": 60137757,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 422326682
+            "sent_prefixes": 455454010
           }
         }
       },
@@ -1480,12 +1496,12 @@
         "description": "yub-ccdo-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11673135,
+        "uptime": 999858,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 89861578
+            "sent_prefixes": 5763093
           }
         }
       },
@@ -1496,12 +1512,12 @@
         "description": "yol-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 67571,
+        "uptime": 3571500,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 485082
+            "sent_prefixes": 30231255
           }
         }
       },
@@ -1512,12 +1528,12 @@
         "description": "cdu-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 111007674,
+        "uptime": 115075728,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 473903652
+            "sent_prefixes": 507030980
           }
         }
       },
@@ -1528,12 +1544,12 @@
         "description": "gle-coe-1-v6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 10446248,
+        "uptime": 14514301,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 79188671
+            "sent_prefixes": 112315999
           }
         }
       },
@@ -1544,12 +1560,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20519451,
+        "uptime": 24587504,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1560,12 +1576,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20519442,
+        "uptime": 24587495,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1576,12 +1592,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 53696278,
+        "uptime": 57764331,
         "address_family": {
           "ipv6": {
             "received_prefixes": 27,
             "accepted_prefixes": 27,
-            "sent_prefixes": 214
+            "sent_prefixes": 217
           }
         }
       },
@@ -1592,12 +1608,12 @@
         "description": "DC:lax-agg10",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 12661923,
+        "uptime": 340125,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 108694,
-            "accepted_prefixes": 108694,
-            "sent_prefixes": 37
+            "received_prefixes": 110288,
+            "accepted_prefixes": 110288,
+            "sent_prefixes": 9
           }
         }
       },
@@ -1608,12 +1624,12 @@
         "description": "lax-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11699273,
+        "uptime": 15767326,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 20595,
-            "accepted_prefixes": 20595,
-            "sent_prefixes": 37
+            "received_prefixes": 24003,
+            "accepted_prefixes": 24003,
+            "sent_prefixes": 40
           }
         }
       },
@@ -1624,12 +1640,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8502966,
+        "uptime": 12571019,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 20168,
-            "accepted_prefixes": 20168,
-            "sent_prefixes": 34
+            "received_prefixes": 23568,
+            "accepted_prefixes": 23568,
+            "sent_prefixes": 37
           }
         }
       },
@@ -1656,12 +1672,12 @@
         "description": "DC:svl-agg10-v6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 12139727,
+        "uptime": 16207780,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 106975,
-            "accepted_prefixes": 106975,
-            "sent_prefixes": 37
+            "received_prefixes": 111335,
+            "accepted_prefixes": 111335,
+            "sent_prefixes": 40
           }
         }
       },
@@ -1672,12 +1688,12 @@
         "description": "DC:slo-agg4",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3701841,
+        "uptime": 1775488,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 28
+            "sent_prefixes": 10
           }
         }
       },
@@ -1688,12 +1704,12 @@
         "description": "riv-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 15683720,
+        "uptime": 19751773,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 30,
-            "accepted_prefixes": 30,
-            "sent_prefixes": 45
+            "received_prefixes": 32,
+            "accepted_prefixes": 32,
+            "sent_prefixes": 48
           }
         }
       },
@@ -1704,12 +1720,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 113049177,
+        "uptime": 117117231,
         "address_family": {
           "ipv6": {
             "received_prefixes": 20,
             "accepted_prefixes": 20,
-            "sent_prefixes": 331
+            "sent_prefixes": 334
           }
         }
       },
@@ -1720,12 +1736,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 113049191,
+        "uptime": 117117244,
         "address_family": {
           "ipv6": {
             "received_prefixes": 15,
             "accepted_prefixes": 15,
-            "sent_prefixes": 331
+            "sent_prefixes": 334
           }
         }
       },
@@ -1736,12 +1752,12 @@
         "description": "tus-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 7377063,
+        "uptime": 11445116,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 11,
-            "accepted_prefixes": 11,
-            "sent_prefixes": 32
+            "received_prefixes": 10,
+            "accepted_prefixes": 10,
+            "sent_prefixes": 35
           }
         }
       },
@@ -1752,12 +1768,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20518766,
+        "uptime": 24586819,
         "address_family": {
           "ipv6": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1768,12 +1784,12 @@
         "description": "DC:pdc-agg1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20092941,
+        "uptime": 24160994,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1784,12 +1800,12 @@
         "description": "bak-agg6 loop0",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4291073,
+        "uptime": 8359126,
         "address_family": {
           "ipv6": {
             "received_prefixes": 17,
             "accepted_prefixes": 17,
-            "sent_prefixes": 29
+            "sent_prefixes": 32
           }
         }
       },
@@ -1800,12 +1816,12 @@
         "description": "oak-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 9797581,
+        "uptime": 13865635,
         "address_family": {
           "ipv6": {
-            "received_prefixes": 26849,
-            "accepted_prefixes": 26849,
-            "sent_prefixes": 36
+            "received_prefixes": 128418,
+            "accepted_prefixes": 128418,
+            "sent_prefixes": 39
           }
         }
       },
@@ -1816,12 +1832,12 @@
         "description": "DC:cor-agg8",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20176478,
+        "uptime": 24244531,
         "address_family": {
           "ipv6": {
             "received_prefixes": 6,
             "accepted_prefixes": 6,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1848,12 +1864,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 20178108,
+        "uptime": 24246161,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1864,12 +1880,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 21292309,
+        "uptime": 25360362,
         "address_family": {
           "ipv6": {
             "received_prefixes": 13,
             "accepted_prefixes": 13,
-            "sent_prefixes": 56
+            "sent_prefixes": 59
           }
         }
       },
@@ -1896,12 +1912,12 @@
         "description": "sha-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 39059289,
+        "uptime": 43127342,
         "address_family": {
           "ipv6": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 389878417
+            "sent_prefixes": 423005745
           }
         }
       },
@@ -1912,12 +1928,12 @@
         "description": "tri-coe-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 16139969,
+        "uptime": 1255293,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
             "accepted_prefixes": 1,
-            "sent_prefixes": 128065794
+            "sent_prefixes": 7266755
           }
         }
       },
@@ -1928,12 +1944,12 @@
         "description": "sha-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 39110970,
+        "uptime": 43179023,
         "address_family": {
           "ipv6": {
             "received_prefixes": 3,
             "accepted_prefixes": 3,
-            "sent_prefixes": 390545420
+            "sent_prefixes": 423672748
           }
         }
       },
@@ -1944,12 +1960,12 @@
         "description": "yub-ccdo-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 11673135,
+        "uptime": 999862,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 89861578
+            "sent_prefixes": 5763093
           }
         }
       },
@@ -1960,12 +1976,12 @@
         "description": "but-coe-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 1832976,
+        "uptime": 1427440,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 10297655
+            "sent_prefixes": 8172501
           }
         }
       },
@@ -1976,12 +1992,12 @@
         "description": "yub-ccd-sut-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4731722,
+        "uptime": 8799776,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 26764955
+            "sent_prefixes": 59892283
           }
         }
       },
@@ -2008,12 +2024,12 @@
         "description": "cccco-cc-2",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 24532659,
+        "uptime": 28600712,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 257476561
+            "sent_prefixes": 290603889
           }
         }
       },
@@ -2024,12 +2040,12 @@
         "description": "sj-cc-3",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8582873,
+        "uptime": 12650926,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 62721030
+            "sent_prefixes": 95848358
           }
         }
       },
@@ -2040,12 +2056,12 @@
         "description": "cccco-colo",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 36243501,
+        "uptime": 40311554,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 356808227
+            "sent_prefixes": 389935555
           }
         }
       },
@@ -2056,12 +2072,12 @@
         "description": "yub-ccd-sut-1",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4731716,
+        "uptime": 8799769,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 26764955
+            "sent_prefixes": 59892283
           }
         }
       },
@@ -2072,12 +2088,12 @@
         "description": "",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 22965091,
+        "uptime": 27033144,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
             "accepted_prefixes": 0,
-            "sent_prefixes": 241060465
+            "sent_prefixes": 274187793
           }
         }
       },
@@ -2088,7 +2104,7 @@
         "description": "Sacramento COE IPv6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 4284717,
+        "uptime": 8352770,
         "address_family": {
           "ipv6": {
             "received_prefixes": 1,
@@ -2104,7 +2120,7 @@
         "description": "CDT California Department of Technology Governmental SFI AS1226 - SAC-GOVSFI",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 28077652,
+        "uptime": 32145705,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
@@ -2120,7 +2136,7 @@
         "description": "CDT California Department of Technology Governmental SFI AS1226 - SAC-GOVSFI",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8679441,
+        "uptime": 12747495,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,
@@ -2136,12 +2152,12 @@
         "description": "UC Davis Medical Center V6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 8040472,
+        "uptime": 12108525,
         "address_family": {
           "ipv6": {
             "received_prefixes": 2,
             "accepted_prefixes": 2,
-            "sent_prefixes": 15738978
+            "sent_prefixes": 26099830
           }
         }
       },
@@ -2152,7 +2168,7 @@
         "description": "CSU Chico V6",
         "is_enabled": false,
         "is_up": true,
-        "uptime": 3155638,
+        "uptime": 7223691,
         "address_family": {
           "ipv6": {
             "received_prefixes": 0,

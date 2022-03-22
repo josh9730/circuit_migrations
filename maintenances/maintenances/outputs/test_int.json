@@ -287,60 +287,6 @@
     "last_flapped": -1.0,
     "mtu": 9014
   },
-  "Loopback0": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "",
-    "description": "",
-    "speed": 0,
-    "last_flapped": -1.0,
-    "mtu": 1500
-  },
-  "Loopback1": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "",
-    "description": "Peering Loopback",
-    "speed": 0,
-    "last_flapped": -1.0,
-    "mtu": 1500
-  },
-  "Loopback100": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "",
-    "description": "9000V Mgmt Loopback",
-    "speed": 0,
-    "last_flapped": -1.0,
-    "mtu": 1500
-  },
-  "MgmtEth0/RSP0/CPU0/0": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "78:BA:F9:0B:22:F8",
-    "description": "sac-dis-sw-1 Gi6/15",
-    "speed": 1000,
-    "last_flapped": -1.0,
-    "mtu": 1514
-  },
-  "MgmtEth0/RSP1/CPU0/0": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "78:BA:F9:13:A5:30",
-    "description": "sac-dis-sw-1 Gi6/16",
-    "speed": 1000,
-    "last_flapped": -1.0,
-    "mtu": 1514
-  },
-  "Null0": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "",
-    "description": "",
-    "speed": 0,
-    "last_flapped": -1.0,
-    "mtu": 1500
-  },
   "TenGigE0/7/0/0": {
     "is_enabled": true,
     "is_up": true,
@@ -745,59 +691,5 @@
     "speed": 10000,
     "last_flapped": -1.0,
     "mtu": 9018
-  },
-  "nVFabric-GigE100/0/0/42": {
-    "is_enabled": true,
-    "is_up": false,
-    "mac_address": "84:B2:61:51:0C:AB",
-    "description": "",
-    "speed": 1000,
-    "last_flapped": -1.0,
-    "mtu": 9212
-  },
-  "nVFabric-GigE100/0/0/43": {
-    "is_enabled": true,
-    "is_up": false,
-    "mac_address": "84:B2:61:51:0C:AC",
-    "description": "",
-    "speed": 1000,
-    "last_flapped": -1.0,
-    "mtu": 9212
-  },
-  "nVFabric-TenGigE100/0/0/44": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "84:B2:61:51:0C:AD",
-    "description": "",
-    "speed": 10000,
-    "last_flapped": -1.0,
-    "mtu": 9212
-  },
-  "nVFabric-TenGigE100/0/0/45": {
-    "is_enabled": true,
-    "is_up": true,
-    "mac_address": "84:B2:61:51:0C:AE",
-    "description": "",
-    "speed": 10000,
-    "last_flapped": -1.0,
-    "mtu": 9212
-  },
-  "nVFabric-TenGigE100/0/0/46": {
-    "is_enabled": true,
-    "is_up": false,
-    "mac_address": "84:B2:61:51:0C:AF",
-    "description": "",
-    "speed": 10000,
-    "last_flapped": -1.0,
-    "mtu": 9212
-  },
-  "nVFabric-TenGigE100/0/0/47": {
-    "is_enabled": true,
-    "is_up": false,
-    "mac_address": "84:B2:61:51:0C:B0",
-    "description": "",
-    "speed": 10000,
-    "last_flapped": -1.0,
-    "mtu": 9212
   }
 }

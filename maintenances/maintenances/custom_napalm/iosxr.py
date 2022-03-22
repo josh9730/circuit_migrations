@@ -7,7 +7,7 @@ import re
 from lxml import etree as ETREE
 from netaddr import EUI
 
-from . import textfsm_optics
+from . import textfsm_optics, textfsm_nd
 
 
 class CustomIOSXRDriver(IOSXRDriver):
@@ -21,13 +21,10 @@ class CustomIOSXRDriver(IOSXRDriver):
 
         isis_neighbors = {}
         ISIS_DEFAULTS = {
-            "IS-IS": {
-                "Hostname": "",
-                "System ID": "",
-                "Up": False,
-                "IPv4 NH": "",
-                "IPv6 Topology": False,
-            }
+            "IS-IS Neighbor": "",
+            "IS-IS State": False,
+            "IS-IS NH": "",
+            "IS-IS IPv6": False,
         }
 
         isis_rpc_request = "<Get><Operational><ISIS><InstanceTable><Instance><Naming>\
@@ -65,13 +62,10 @@ class CustomIOSXRDriver(IOSXRDriver):
             isis_neighbors[interface] = copy.deepcopy(ISIS_DEFAULTS)
             isis_neighbors[interface].update(
                 {
-                    "IS-IS": {
-                        "Hostname": host,
-                        "System ID": systemID,
-                        "Up": is_up,
-                        "IPv4 NH": ipv4,
-                        "IPv6 Topology": ipv6_top,
-                    }
+                    "IS-IS Neighbor": host,
+                    "IS-IS State": is_up,
+                    "IS-IS NH": ipv4,
+                    "IS-IS IPv6": ipv6_top,
                 }
             )
         return isis_neighbors
@@ -87,10 +81,8 @@ class CustomIOSXRDriver(IOSXRDriver):
 
         arp_table = {}
         ARP_DEFAULTS = {
-            "ARP": {
-                "Next-Hop": "",
-                "NH MAC": "",
-            }
+            "ARP NH": "",
+            "ARP NH MAC": "",
         }
 
         for entry in rpc_reply.xpath(".//EntryTable/Entry"):
@@ -106,64 +98,75 @@ class CustomIOSXRDriver(IOSXRDriver):
             arp_table[interface] = copy.deepcopy(ARP_DEFAULTS)
             arp_table[interface].update(
                 {
-                    "ARP": {
-                        "Next-Hop": next_hop,
-                        "MAC": str(mac),
-                    }
+                    "ARP NH": next_hop,
+                    "ARP NH MAC": str(mac),
                 }
             )
         return arp_table
 
     def get_ipv6_nd(self):
-        """Return IPv6 Neighbor Discovery
+        """Return IPv6 Neighbors
 
-        Returns dict of ND adjacencies via rpc.
+        Uses CLI output due to poor RPC support
         """
-        nd_table = {}
-        ND_DEFAULTS = {
-            "IPv6 ND": {
-                "Next-Hop": "",
-                "MAC": "",
-            }
-        }
 
-        rpc_request = "<Get><Operational><IPV6NodeDiscovery></IPV6NodeDiscovery></Operational></Get>"
-        rpc_reply = ETREE.fromstring(self.device.make_rpc_call(rpc_request))
+        def parse_template_output():
+            # Fix formatting of Interfaces to match the NAPALM
+            # 'get_interfaces()' driver output
 
-        for entry in rpc_reply.xpath(".//BundleInterfaceTable/BundleInterface"):
-            if napalm.base.helpers.find_txt(entry, "IsInterfaceEnabled") == "true":
-                interface = napalm.base.helpers.find_txt(entry, "Naming/InterfaceName")
-                next_hop = napalm.base.helpers.find_txt(
-                    entry, "GlobalAddressList/Entry/IPv6Address"
-                )
+            for neighbor in self.parsed_output:
+                short_port = neighbor[2]
+                if short_port.startswith("Te"):
+                    port = "TenGigE"
+                elif short_port.startswith("Hu"):
+                    port = "HundredGigE"
+                elif short_port.startswith("Gi"):
+                    port = "GigabitEthernet"
+                elif short_port.startswith("BE"):
+                    port = "Bundle-Ether"
+                port = port + short_port[2:]
 
-                # convert to EUI format to match ip_interface
-                mac = str(EUI(napalm.base.helpers.find_txt(entry, "macAddr")))
-
-                nd_table[interface] = copy.deepcopy(ND_DEFAULTS)
-                nd_table[interface].update(
+                self.nd_table[port] = copy.deepcopy(self.ND_DEFAULTS)
+                self.nd_table[port].update(
                     {
-                        "IPv6 ND": {
-                            "Next-Hop": next_hop,
-                            "MAC": mac,
-                        }
+                        "ND NH": neighbor[0],
+                        "ND MAC": neighbor[1],
                     }
                 )
-        return nd_table
+
+        self.nd_table = {}
+        self.ND_DEFAULTS = {
+            "ND NH": "",
+            "ND MAC": "",
+        }
+
+        command = 'show ipv6 neighbors | ex "fe80|Mcast"'
+        output = self.cli([command])[command]
+
+        tmp = tempfile.NamedTemporaryFile()
+        with open(tmp.name, "w") as f:
+            f.write(textfsm_nd)
+
+        with open(tmp.name, "r") as f:
+            try:
+                self.parsed_output = textfsm.TextFSM(f).ParseText(output)
+                parse_template_output()
+                return self.nd_table
+
+            except textfsm.parser.TextFSMTemplateError:
+                print("\nNo IPv6 Neighbors for this device.\n")
 
     def get_optics_inventory(self):
         """Return dict of optics inventory by interface
 
-        Runs CLI command and filters with TextFSM using tempfile.
-        Filters nVFabric & CPU strings.
+        Runs CLI command and filters with TextFSM using tempfile
+        due to no RPC support.
         """
 
         optics = {}
         OPTICS_DEFAULTS = {
-            "Optic": {
-                "PID": "",
-                "Serial": "",
-            }
+            "Optic": "",
+            "Optic Serial": "",
         }
 
         command = r'show inventory | util egrep -A1 "[0-9]{1,3}\/[0-9]{1}\/(([0-9]{1})|(CPU)[0-9]{1})\/[0-9]{1,2}"'
@@ -184,10 +187,8 @@ class CustomIOSXRDriver(IOSXRDriver):
             optics[port] = copy.deepcopy(OPTICS_DEFAULTS)
             optics[port].update(
                 {
-                    "Optic": {
-                        "PID": optic_list[1],
-                        "Serial": optic_list[2],
-                    }
+                    "Optic": optic_list[1],
+                    "Optic Serial": optic_list[2],
                 }
             )
         return optics

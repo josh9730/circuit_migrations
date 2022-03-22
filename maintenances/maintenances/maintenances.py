@@ -1,7 +1,9 @@
+import sys
 import yaml
-import argparse
+import typer
+from pydantic import ValidationError
 
-from utils.checks import data_checks
+from schemas import schemas
 from lib.devices import IOSXRMain
 
 """
@@ -10,32 +12,44 @@ Pending:
     - fix otp re-attempt
     - mock testing
     - napalm compliance testing
+
 """
 
+maintenances = typer.Typer(
+    add_completion=False,
+    help="""
+Maintenance functions
+"""
+)
 
-def main(args):
+
+def validate_input(model, data: dict):
+    try:
+        model(**data)
+    except ValidationError as e:
+        sys.exit(e)
+
+
+@maintenances.command()
+def all_circuits():
+    """Pull stuff
+    """
     with open("data.yaml") as f:
         data = yaml.safe_load(f)
 
-    # check yaml against schema
-    data_checks(data)
+    validate_input(schemas.BaseYAML, data)
 
-    if args.circuit_data:
-        device_type = data["device_type"]
+    device_type = data["device_type"]
 
-        if device_type == "iosxr":
-            circuit_data = IOSXRMain(data).get_migration_data_full()
-            # circuit_data.get_interfaces()
+    if device_type == "iosxr":
+        circuit_data = IOSXRMain(data).get_migration_data_full()
+        # circuit_data.get_interfaces()
+
+
+@maintenances.command()
+def snapshots():
+    pass
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Maintenance functions")
-    parser.add_argument(
-        "-c",
-        "--circuit_data",
-        action="store_true",
-        help="Return circuit data for migration prep",
-    )
-    args = parser.parse_args()
-
-    main(args)
+    maintenances()
