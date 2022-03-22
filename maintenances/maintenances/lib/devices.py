@@ -88,6 +88,7 @@ class IOSXRMain:
                 )
                 bgp_peers[v4_neighbor].pop('address_family')
                 bgp_peers[v4_neighbor].pop('uptime')
+                bgp_peers[v4_neighbor].pop('description')
                 iface_dict[iface].update(bgp_peers[v4_neighbor])
 
                 # remove matched peer, un-matched will be dumped to a second sheet
@@ -105,6 +106,7 @@ class IOSXRMain:
                 )
                 bgp_peers[v6_neighbor].pop('address_family')
                 bgp_peers[v6_neighbor].pop('uptime')
+                bgp_peers[v6_neighbor].pop('description')
                 iface_dict[iface].update(bgp_peers[v6_neighbor])
 
                 # remove matched peer, un-matched will be dumped to a second sheet

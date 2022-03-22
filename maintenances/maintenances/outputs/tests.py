@@ -17,70 +17,12 @@ folder_id = "1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu"  # default to None
 sheet_title = "CSAC MX10K Migration"
 
 
-# a = pd.read_json("comb_dict.json", orient='index')
+df = pd.read_json("comb_dict2.json", orient='index')
 # b = a.at['Bundle-Ether5.326', 'ipv4']
 
 # print(a['ipv4'].keys())
 
 
-with open("bgp.json", "r") as f:
-    bgp_dict = json.load(f)
-
-with open("comb_dict2.json", "r") as f:
-    iface_dict = json.load(f)
-
-bgp_peers = bgp_dict["global"]["peers"]
-
-for iface in iface_dict:
-    v4_neighbor, v6_neighbor = None, None
-
-    # iBGP
-    if iface_dict[iface].get("IS-IS Neighbor"):
-        isis_neighbor = iface_dict[iface]["IS-IS Neighbor"]
-        v4_neighbor = socket.gethostbyname(isis_neighbor)
-        try:
-            socket.getaddrinfo(
-                isis_neighbor, None, socket.AF_INET6, socket.SOCK_DGRAM
-            )[0][-1][0]
-        except IndexError:
-            print(f"{iface_dict} has no IPv6 Neighbor.")
-
-    # eBGP
-    elif iface_dict[iface].get("ARP NH"):
-        v4_neighbor = iface_dict[iface]["ARP NH"]
-        if iface_dict[iface].get("ND NH"):
-            v6_neighbor = iface_dict[iface]["ND NH"]
-
-    # update interface dict with BGP keys
-    if v4_neighbor and bgp_peers.get(v4_neighbor):
-        path = bgp_peers[v4_neighbor]['address_family']['ipv4']
-        bgp_peers[v4_neighbor].update(
-            {
-                'ipv4_rx_prefixes': path['received_prefixes'],
-                'ipv4_acpt_prefixes': path['accepted_prefixes'],
-                'ipv4_tx_prefixes': path['sent_prefixes'],
-            }
-        )
-        bgp_peers[v4_neighbor].pop('address_family')
-        iface_dict[iface].update(bgp_peers[v4_neighbor])
-
-        # remove matched peer, un-matched will be dumped to a second sheet
-        bgp_peers.pop(v4_neighbor, None)
-
-    if v6_neighbor and bgp_peers.get(v6_neighbor):
-        path = bgp_peers[v6_neighbor]['address_family']['ipv6']
-        iface_dict[iface].update(
-            {
-                'ipv6_rx_prefixes': path['received_prefixes'],
-                'ipv6_acpt_prefixes': path['accepted_prefixes'],
-                'ipv6_tx_prefixes': path['sent_prefixes'],
-            }
-        )
-
-        # remove matched peer, un-matched will be dumped to a second sheet
-        bgp_peers.pop(v6_neighbor, None)
-
-pprint(iface_dict)
 
 
 # df.drop(columns=['ipv4'], inplace=True)
@@ -94,25 +36,25 @@ pprint(iface_dict)
 # # pprint(first_n_column)
 
 
-# client = pygsheets.authorize()
+client = pygsheets.authorize()
 
-# try:
-#     sht = client.open(sheet_title)
+try:
+    sht = client.open(sheet_title)
 
-# except pygsheets.SpreadsheetNotFound:
-#     print(f"\nSheet not found, creating sheet titled: {sheet_title}")
-#     sht = client.create(sheet_title, folder=folder_id)
+except pygsheets.SpreadsheetNotFound:
+    print(f"\nSheet not found, creating sheet titled: {sheet_title}")
+    sht = client.create(sheet_title, folder=folder_id)
 
 
-# try:
-#     circuits_sheet = sht.worksheet_by_title("circuits")
-#     bgp_sheet = sht.worksheet_by_title("bgp")
+try:
+    circuits_sheet = sht.worksheet_by_title("circuits")
+    bgp_sheet = sht.worksheet_by_title("bgp")
 
-# except pygsheets.exceptions.WorksheetNotFound:
-#     # will error if one of above exists
-#     circuits_sheet = sht.add_worksheet("circuits")
-#     bgp_sheet = sht.add_worksheet("bgp")
-#     sht.del_worksheet(sht.worksheet_by_title("Sheet1"))
+except pygsheets.exceptions.WorksheetNotFound:
+    # will error if one of above exists
+    circuits_sheet = sht.add_worksheet("circuits")
+    bgp_sheet = sht.add_worksheet("bgp")
+    sht.del_worksheet(sht.worksheet_by_title("Sheet1"))
 
 # circuits_sheet.clear()
-# circuits_sheet.set_dataframe(df, start=(1, 2), extend=True, nan="")
+circuits_sheet.set_dataframe(df, start=(1, 2), extend=True, nan="")
