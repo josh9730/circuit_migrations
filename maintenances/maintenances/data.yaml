@@ -1,18 +1,47 @@
 ---
-# pygsheets vars
+ticket: NOC-600000
+hostname: sac-agg4
+device_type: iosxr
+
+
+# Migrations, pygsheets vars
 folder_id: 1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu
 sheet_title: CSAC MX10K Migration
 
 
-ticket: NOC-600000
+# Circuits Snapshots
+global_bgp: lax-agg10 #must be junos
+# circuits:
+#   - port: Te1/1/1 - format? -- set
+#     service: ebgp, ibgp, static -- required always
+#     clr: string, optional
+#     ipv4_neighbor: optional, overrides getter -- required for type ip
+#     ipv6_neighbor: optional, overrides getter -- required for type ip
 
-### Circuits
-# hostname: "137.164.84.240"
-hostname: sac-agg4
-device_type: iosxr
 circuits:
-  - name: CLR-6216 # validate 'CLR-[0-9]{4,5}'
-    service: ibgp # validate ibgp, ebgp, static ????
-    neighbor: sac-csu-2 # hostname OR IPv4
-    v6_neighbor: # IPv6 neighbor address
-    port: Hu0/3/0/0 # check this somehow
+  - port: GigabitEthernet100/0/0/11
+    service: ibgp #if isis, ibgp; if not isis, ebgp; if not ebgp, static , or just do all?
+    clr: CLR-16110
+
+
+
+
+# circuits:
+#   CLR2690:
+#     service: static
+#     ipv4_routes:
+#       - 205.154.223.0/24
+#   oxnr-pub-lib-1:
+#     service: ibgp
+#     port: et-6/1/0.211
+#   CLR7608:
+#     service: ebgp #hpr
+#     port: et-7/1/1.343
+#   lb-csu-2:
+#     service: ibgp
+#     port: et-6/5/0
+#     ipv4_neighbor: 137.164.0.4
+#     ipv6_neighbor: 2607:f380::118:9a40:41
+#   137.164.2.49:
+#     service: ibgp
+#     ipv4_neighbor: 137.164.2.49

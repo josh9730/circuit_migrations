@@ -13,7 +13,61 @@ from . import textfsm_optics, textfsm_nd
 class CustomIOSXRDriver(IOSXRDriver):
     """Extends base IOSXRDriver for custom methods"""
 
-    def get_isis_neighbors(self):
+    def get_pim_neighbors_xr(self):
+        """Returns list of PIM-enabled interfaces."""
+        pim_neighbors = []
+        pim_rpc_request = "<Get><Operational><PIM><Active><DefaultContext><NeighborSummaryTable>\
+        </NeighborSummaryTable></DefaultContext></Active></PIM></Operational></Get>"
+
+        pim_rpc_rply = ETREE.fromstring(self.device.make_rpc_call(pim_rpc_request))
+
+        for interfaces in pim_rpc_rply.xpath(".//NeighborSummaryTable/NeighborSummary"):
+            interface = napalm.base.helpers.find_txt(interfaces, "Naming/InterfaceName")
+            pim_neighbors.append(interface)
+        return pim_neighbors
+
+    def get_msdp_summary_xr(self):
+        """Returns dict of MSDP peerings keyed by peer IP."""
+        msdp_peers = {}
+        msdp_rpc_request = "<Get><Operational><MSDP><Active><DefaultContext><PeerSummaryTable>\
+        </PeerSummaryTable></DefaultContext></Active></MSDP></Operational></Get>"
+        msdp_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(msdp_rpc_request))
+
+        for peers in msdp_rpc_reply.xpath(
+            ".//Active/DefaultContext/PeerSummaryTable/PeerSummary"
+        ):
+            peer = napalm.base.helpers.find_txt(peers, "Naming/PeerAddress")
+            asn = napalm.base.helpers.find_txt(peers, "ASNumberString")
+
+            msdp_peers.update({peer: asn})
+        return msdp_peers
+
+    def get_mpls_interfaces_xr(self):
+        """Returns dict of MPLS enabled intefaces."""
+        mpls_interfaces = {}
+        MPLS_DEFAULTS = {
+            "mpls_enabled": False,
+        }
+
+        mpls_rpc_request = "<Get><Operational><MPLS_LSD><InterfaceTable>\
+        </InterfaceTable></MPLS_LSD></Operational></Get>"
+
+        mpls_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(mpls_rpc_request))
+
+        for mpls_interface in mpls_rpc_reply.xpath(".//InterfaceTable/Interface"):
+            interface = napalm.base.helpers.find_txt(
+                mpls_interface, "Naming/InterfaceName"
+            )
+
+            mpls_interfaces[interface] = copy.deepcopy(MPLS_DEFAULTS)
+            mpls_interfaces[interface].update(
+                {
+                    "mpls_enabled": True,
+                }
+            )
+        return mpls_interfaces
+
+    def get_isis_neighbors_xr(self):
         """Returns dict of ISIS Neighborship parameters
 
         Returns dict of adjacencies via rpc.
@@ -25,11 +79,13 @@ class CustomIOSXRDriver(IOSXRDriver):
             "isis_state": False,
             "isis_nh": "",
             "isis_ipv6": False,
+            "isis_metric": "",
         }
 
         isis_rpc_request = "<Get><Operational><ISIS><InstanceTable><Instance><Naming>\
         <InstanceName>2152</InstanceName></Naming><HostnameTable></HostnameTable>\
-        <NeighborTable></NeighborTable></Instance></InstanceTable></ISIS></Operational></Get>"
+        <NeighborTable></NeighborTable><InterfaceTable></InterfaceTable></Instance>\
+        </InstanceTable></ISIS></Operational></Get>"
 
         isis_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(isis_rpc_request))
 
@@ -68,9 +124,26 @@ class CustomIOSXRDriver(IOSXRDriver):
                     "isis_ipv6": ipv6_top,
                 }
             )
+
+        # metric is stored in a third table
+        for iface_table_interfaces in isis_rpc_reply.xpath(
+            ".//InterfaceTable/Interface"
+        ):
+            iface_table_interface = napalm.base.helpers.find_txt(
+                iface_table_interfaces, "Naming/InterfaceName"
+            )
+            metric = napalm.base.helpers.find_txt(
+                iface_table_interfaces,
+                "InterfaceStatusAndData/Enabled/PerTopologyData/Entry/Status/Enabled/Level2Metric",
+            )
+
+            try:
+                isis_neighbors[iface_table_interface].update({"isis_metric": metric})
+            except KeyError:  # Loopback 0 has metric, not needed
+                continue
         return isis_neighbors
 
-    def get_arp_table(self):
+    def get_arp_table_xr(self):
         """Return dict of arp table by interface
 
         Filters interface ARP entries via rpc.
@@ -104,7 +177,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return arp_table
 
-    def get_ipv6_nd(self):
+    def get_ipv6_nd_xr(self):
         """Return IPv6 Neighbors
 
         Uses CLI output due to poor RPC support
@@ -156,7 +229,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             except textfsm.parser.TextFSMTemplateError:
                 print("\nNo IPv6 Neighbors for this device.\n")
 
-    def get_optics_inventory(self):
+    def get_optics_inventory_xr(self):
         """Return dict of optics inventory by interface
 
         Runs CLI command and filters with TextFSM using tempfile

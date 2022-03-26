@@ -6,7 +6,9 @@ import pygsheets
 import pandas as pd
 import socket
 
+import ipaddress
 
+import re
 
 """
 jdickman@JD5099 outputs % python tests.py
@@ -19,36 +21,58 @@ folder_id = "1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu"  # default to None
 sheet_title = "CSAC MX10K Migration"
 
 
-df = pd.read_json("comb_dict2.json", orient="index")
+# df = pd.read_json("comb_dict2.json", orient="index")
 # df2 = pd.read_json("bgp_missing_int.json", orient="index")
 
-with open('bgp_missing_int.json', 'r') as f:
-    bgp = json.load(f)
+with open("outputs_circuits_ifaces.json", "r") as f:
+    data = json.load(f)
 
-# df2 = pd.json_normalize(bgp)
+iface = 'GigabitEthernet100/0/0/11'
+parsed_iface = re.match(r'([^\d]*)(\d.*)', iface).groups()[1]
+print(parsed_iface)
+
+new_dict = {}
+
+data_keys = list(data.keys())
+for i in data_keys:
+    print(i)
+    if parsed_iface in i:
+        new_iface = i
+
+new_dict.update({
+    new_iface: data[new_iface]
+})
+
+pprint(new_dict)
 
 
-for k, v in bgp.items():
-    if v['address_family'].get('ipv4'):
-        path = v['address_family']['ipv4']
-    else:
-        path = v['address_family']['ipv6']
 
-    bgp[k].update(
-        {
-            'received_prefixes': path['received_prefixes'],
-            'accepted_prefixes': path['accepted_prefixes'],
-            'sent_prefixes': path['sent_prefixes'],
-        }
-    )
-    bgp[k].pop('address_family')
+# for k, v in bgp.items():
+#     ip_type = next(iter(v['address_family'].keys()))
+
+#     for asn, peer_list in bgp_detail['global'].items():
+#         if asn == v['remote_as']:
+
+# bgp_new.update(
+#     {
+#         k: {
+#             'local_as': v['local_as'],
+#             'remote_as': v['remote_as'],
+#             'description': v['description'],
+#             'is_enabled': v['is_enabled'],
+#             'is_up': v['is_up'],
+#             f'{ip_type}_received_prefixes': v['address_family'][ip_type]['received_prefixes'],
+#             f'{ip_type}_accepted_prefixes': v['address_family'][ip_type]['accepted_prefixes'],
+#             f'{ip_type}_sent_prefixes': v['address_family'][ip_type]['sent_prefixes'],
+
+#         }
+#     }
+# )
+# pprint(bgp_new)
+# exit(1)
 
 
-
-df2 = pd.DataFrame.from_dict(bgp, orient='index')
-print(df2)
 # print(df.to_dict(orient='records')[0])
-
 
 
 # df['interfaces'] = df.index
@@ -129,4 +153,3 @@ print(df2)
 
 # bgp_sheet.clear()
 # bgp_sheet.set_dataframe(df2, start=(1, 1), extend=True, nan="")
-
