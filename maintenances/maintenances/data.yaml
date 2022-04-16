@@ -1,27 +1,26 @@
 ---
 ticket: NOC-600000
-hostname: sac-agg4
-device_type: iosxr
+# hostname: riv-cty-lib-1
+# hostname: '137.164.84.246'
+hostname: lax-agg10
+
+device_type: junos
 
 
 # Migrations, pygsheets vars
 folder_id: 1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu
-sheet_title: CSAC MX10K Migration
+sheet_title: FRES1 MX10K Migration
 
-
-# Circuits Snapshots
-global_bgp: lax-agg10 #must be junos
-# circuits:
-#   - port: Te1/1/1 - format? -- set
-#     service: ebgp, ibgp, static -- required always
-#     clr: string, optional
-#     ipv4_neighbor: optional, overrides getter -- required for type ip
-#     ipv6_neighbor: optional, overrides getter -- required for type ip
-
+# Circuits
+global_router: 137.164.16.6  # only required for XR
 circuits:
-  - port: GigabitEthernet100/0/0/11
-    service: ibgp #if isis, ibgp; if not isis, ebgp; if not ebgp, static , or just do all?
-    clr: CLR-16110
+  - port: GigabitEthernet100/0/0/5
+    cpe: mar-coe-5  # only for iBGP
+    clr: CLR-6381
+  - port: TenGigE0/3/0/15
+    clr: CLR-7149
+    # v6_neighbor: 2607:f380::118:9a40:5511
+    # v4_neighbor: 137.164.5.81
 
 
 
@@ -45,3 +44,89 @@ circuits:
 #   137.164.2.49:
 #     service: ibgp
 #     ipv4_neighbor: 137.164.2.49
+
+
+# 'up'                        : True,
+# 'local_as'                  : 13335,
+# 'remote_as'                 : 8121,
+# 'local_address'             : u'172.101.76.1',
+# 'local_address_configured'  : True,
+# 'local_port'                : 179,
+# 'routing_table'             : u'inet.0',
+# 'remote_address'            : u'192.247.78.0',
+# 'remote_port'               : 58380,
+# 'multihop'                  : False,
+# 'multipath'                 : True,
+# 'remove_private_as'         : True,
+# 'import_policy'             : u'4-NTT-TRANSIT-IN',
+# 'export_policy'             : u'4-NTT-TRANSIT-OUT',
+# 'input_messages'            : 123,
+# 'output_messages'           : 13,
+# 'input_updates'             : 123,
+# 'output_updates'            : 5,
+# 'messages_queued_out'       : 23,
+# 'connection_state'          : u'Established',
+# 'previous_connection_state' : u'EstabSync',
+# 'last_event'                : u'RecvKeepAlive',
+# 'suppress_4byte_as'         : False,
+# 'local_as_prepend'          : False,
+# 'holdtime'                  : 90,
+# 'configured_holdtime'       : 90,
+# 'keepalive'                 : 30,
+# 'configured_keepalive'      : 30,
+# 'active_prefix_count'       : 132808,
+# 'received_prefix_count'     : 566739,
+# 'accepted_prefix_count'     : 566479,
+# 'suppressed_prefix_count'   : 0,
+# 'advertised_prefix_count'   : 0,
+# 'flap_count'                : 27
+
+
+# [ ( '137.164.16.21+179',
+#     [ ('up', True),
+#       ('local_as', 2152),
+#       ('remote_as', 2152),
+#       ('router_id', '137.164.16.21'),
+#       ('local_address', '137.164.0.204+62233'),
+#       ('peer_asn', '2152'),
+#       ('instance', 'master'),
+#       ('import_policy', None),
+#       ('export_policy', 'next-hop-self static-to-bgp'),
+#       ('local_as_prepend', True),
+#       ('rib', junos_bgp_rib_table:riv-cty-lib-1: 10 items)]),
+#   ( '137.164.16.104+179',
+#     [ ('up', True),
+#       ('local_as', 2152),
+#       ('remote_as', 2152),
+#       ('router_id', '137.164.16.104'),
+#       ('local_address', '137.164.0.204+54801'),
+#       ('peer_asn', '2152'),
+#       ('instance', 'master'),
+#       ('import_policy', None),
+#       ('export_policy', 'next-hop-self static-to-bgp'),
+#       ('local_as_prepend', True),
+#       ('rib', junos_bgp_rib_table:riv-cty-lib-1: 2 items)]),
+#   ( '2607:f380::118:9a41:151+36832',
+#     [ ('up', True),
+#       ('local_as', 2152),
+#       ('remote_as', 2152),
+#       ('router_id', '137.164.16.21'),
+#       ('local_address', '2607:f380::118:9a40:cc1+179'),
+#       ('peer_asn', '2152'),
+#       ('instance', 'master'),
+#       ('import_policy', None),
+#       ('export_policy', 'next-hop-self static-to-bgp'),
+#       ('local_as_prepend', True),
+#       ('rib', junos_bgp_rib_table:riv-cty-lib-1: 2 items)]),
+#   ( '2607:f380::118:9a41:680',
+#     [ ('up', False),
+#       ('local_as', 2152),
+#       ('remote_as', 2152),
+#       ('router_id', None),
+#       ('local_address', '2607:f380::118:9a40:cc1'),
+#       ('peer_asn', '2152'),
+#       ('instance', 'master'),
+#       ('import_policy', None),
+#       ('export_policy', 'next-hop-self static-to-bgp'),
+#       ('local_as_prepend', None),
+#       ('rib', junos_bgp_rib_table:riv-cty-lib-1: 0 items)])]

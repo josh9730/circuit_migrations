@@ -5,6 +5,7 @@ import subprocess
 import pygsheets
 import pandas as pd
 import socket
+from copy import deepcopy
 
 import ipaddress
 
@@ -17,34 +18,33 @@ Enter the authorization code: 4/1AX4XfWitD5xdq5EkfImcJgVVqm6H8ZTlthX9KAiBp_sDE3b
 """
 
 # Add to yaml
-folder_id = "1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu"  # default to None
-sheet_title = "CSAC MX10K Migration"
+# folder_id = "1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu"  # default to None
+# sheet_title = "CSAC MX10K Migration"
 
 
 # df = pd.read_json("comb_dict2.json", orient="index")
 # df2 = pd.read_json("bgp_missing_int.json", orient="index")
 
-with open("outputs_circuits_ifaces.json", "r") as f:
-    data = json.load(f)
+# with open("outputs_circuits_ifaces.json", "r") as f:
+#     data = json.load(f)
 
-iface = 'GigabitEthernet100/0/0/11'
-parsed_iface = re.match(r'([^\d]*)(\d.*)', iface).groups()[1]
-print(parsed_iface)
+# iface = 'GigabitEthernet100/0/0/11'
+# parsed_iface = re.match(r'([^\d]*)(\d.*)', iface).groups()[1]
+# print(parsed_iface)
 
-new_dict = {}
+# new_dict = {}
 
-data_keys = list(data.keys())
-for i in data_keys:
-    print(i)
-    if parsed_iface in i:
-        new_iface = i
+# data_keys = list(data.keys())
+# for i in data_keys:
+#     print(i)
+#     if parsed_iface in i:
+#         new_iface = i
 
-new_dict.update({
-    new_iface: data[new_iface]
-})
+# new_dict.update({
+#     new_iface: data[new_iface]
+# })
 
-pprint(new_dict)
-
+# pprint(new_dict)
 
 
 # for k, v in bgp.items():
@@ -153,3 +153,95 @@ pprint(new_dict)
 
 # bgp_sheet.clear()
 # bgp_sheet.set_dataframe(df2, start=(1, 1), extend=True, nan="")
+
+neighbors_rib = [
+    (
+        "bgp.rtarget.0",
+        [
+            ("received_prefix_count", 89),
+            ("accepted_prefix_count", 89),
+            ("advertised_prefix_count", 1),
+        ],
+    ),
+    (
+        "inet.0",
+        [
+            ("received_prefix_count", 880749),
+            ("accepted_prefix_count", 880749),
+            ("advertised_prefix_count", 1),
+        ],
+    ),
+    (
+        "inet.2",
+        [
+            ("received_prefix_count", 1806),
+            ("accepted_prefix_count", 1806),
+            ("advertised_prefix_count", 0),
+        ],
+    ),
+    (
+        "bgp.l3vpn.0",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", None),
+        ],
+    ),
+    (
+        "bgp.l3vpn.2",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", None),
+        ],
+    ),
+    (
+        "bgp.l3vpn-inet6.0",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", None),
+        ],
+    ),
+    (
+        "bgp.l3vpn-inet6.2",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", None),
+        ],
+    ),
+    (
+        "bgp.evpn.0",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", 0),
+        ],
+    ),
+    (
+        "bgp.mvpn.0",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", 0),
+        ],
+    ),
+    (
+        "bgp.mvpn-inet6.0",
+        [
+            ("received_prefix_count", 0),
+            ("accepted_prefix_count", 0),
+            ("advertised_prefix_count", 0),
+        ],
+    ),
+]
+neighbor_details = {}
+for rib_table in neighbors_rib:
+    # pprint(rib_table)
+    print(rib_table[0])
+
+    print(dict(rib_table[1]))
+    neighbor_details.update({rib_table[0]: dict(rib_table[1])})
+
+pprint(neighbor_details)

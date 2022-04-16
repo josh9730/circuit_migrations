@@ -1,5 +1,5 @@
 from napalm.iosxr.iosxr import IOSXRDriver
-import napalm.base.helpers
+from napalm.base.helpers import find_txt as napalm_find_txt
 import copy
 import textfsm
 import tempfile
@@ -7,28 +7,30 @@ import re
 from lxml import etree as ETREE
 from netaddr import EUI
 
-from . import textfsm_optics, textfsm_nd
+from . import (
+    textfsm_optics,
+    textfsm_nd,
+    textfsm_bgp_rx,
+)
 
 
 class CustomIOSXRDriver(IOSXRDriver):
     """Extends base IOSXRDriver for custom methods"""
 
-    def get_pim_neighbors_xr(self):
+    def get_pim_neighbors_xr(self) -> list:
         """Returns list of PIM-enabled interfaces."""
         pim_neighbors = []
         pim_rpc_request = "<Get><Operational><PIM><Active><DefaultContext><NeighborSummaryTable>\
         </NeighborSummaryTable></DefaultContext></Active></PIM></Operational></Get>"
-
         pim_rpc_rply = ETREE.fromstring(self.device.make_rpc_call(pim_rpc_request))
 
         for interfaces in pim_rpc_rply.xpath(".//NeighborSummaryTable/NeighborSummary"):
-            interface = napalm.base.helpers.find_txt(interfaces, "Naming/InterfaceName")
-            pim_neighbors.append(interface)
+            pim_neighbors.append(napalm_find_txt(interfaces, "Naming/InterfaceName"))
         return pim_neighbors
 
-    def get_msdp_summary_xr(self):
+    def get_msdp_summary_xr(self) -> list:
         """Returns dict of MSDP peerings keyed by peer IP."""
-        msdp_peers = {}
+        msdp_peers = []
         msdp_rpc_request = "<Get><Operational><MSDP><Active><DefaultContext><PeerSummaryTable>\
         </PeerSummaryTable></DefaultContext></Active></MSDP></Operational></Get>"
         msdp_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(msdp_rpc_request))
@@ -36,10 +38,7 @@ class CustomIOSXRDriver(IOSXRDriver):
         for peers in msdp_rpc_reply.xpath(
             ".//Active/DefaultContext/PeerSummaryTable/PeerSummary"
         ):
-            peer = napalm.base.helpers.find_txt(peers, "Naming/PeerAddress")
-            asn = napalm.base.helpers.find_txt(peers, "ASNumberString")
-
-            msdp_peers.update({peer: asn})
+            msdp_peers.append(napalm_find_txt(peers, "Naming/PeerAddress"))
         return msdp_peers
 
     def get_mpls_interfaces_xr(self):
@@ -55,9 +54,7 @@ class CustomIOSXRDriver(IOSXRDriver):
         mpls_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(mpls_rpc_request))
 
         for mpls_interface in mpls_rpc_reply.xpath(".//InterfaceTable/Interface"):
-            interface = napalm.base.helpers.find_txt(
-                mpls_interface, "Naming/InterfaceName"
-            )
+            interface = napalm_find_txt(mpls_interface, "Naming/InterfaceName")
 
             mpls_interfaces[interface] = copy.deepcopy(MPLS_DEFAULTS)
             mpls_interfaces[interface].update(
@@ -67,7 +64,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return mpls_interfaces
 
-    def get_isis_neighbors_xr(self):
+    def get_isis_neighbors_xr(self) -> dict:
         """Returns dict of ISIS Neighborship parameters
 
         Returns dict of adjacencies via rpc.
@@ -90,30 +87,25 @@ class CustomIOSXRDriver(IOSXRDriver):
         isis_rpc_reply = ETREE.fromstring(self.device.make_rpc_call(isis_rpc_request))
 
         for neighbor in isis_rpc_reply.xpath(".//NeighborTable/Neighbor"):
-            systemID = napalm.base.helpers.find_txt(neighbor, "Naming/SystemID")
-            interface = napalm.base.helpers.find_txt(neighbor, "Naming/InterfaceName")
-            is_up = (
-                napalm.base.helpers.find_txt(neighbor, "NeighborState")
-                == "ISIS_ADJ_UP_STATE"
-            )
-            ipv4 = napalm.base.helpers.find_txt(
+            systemID = napalm_find_txt(neighbor, "Naming/SystemID")
+            interface = napalm_find_txt(neighbor, "Naming/InterfaceName")
+            is_up = napalm_find_txt(neighbor, "NeighborState") == "ISIS_ADJ_UP_STATE"
+            ipv4 = napalm_find_txt(
                 neighbor,
                 "NeighborPerAddressFamilyData/Entry/IPV4/InterfaceAddresses/Entry",
             )
 
             ipv6_top = False
-            if napalm.base.helpers.find_txt(
+            if napalm_find_txt(
                 neighbor, "NeighborPerAddressFamilyData/Entry/IPV6/NextHop"
             ):
                 ipv6_top = True
 
             # Hostname not in NeighborTable, match against SystemID from above
             for hostname in isis_rpc_reply.xpath(".//HostnameTable/Hostname"):
-                host_systemID = napalm.base.helpers.find_txt(
-                    hostname, "Naming/SystemID"
-                )
+                host_systemID = napalm_find_txt(hostname, "Naming/SystemID")
                 if host_systemID == systemID:
-                    host = napalm.base.helpers.find_txt(hostname, "HostName")
+                    host = napalm_find_txt(hostname, "HostName")
 
             isis_neighbors[interface] = copy.deepcopy(ISIS_DEFAULTS)
             isis_neighbors[interface].update(
@@ -129,10 +121,10 @@ class CustomIOSXRDriver(IOSXRDriver):
         for iface_table_interfaces in isis_rpc_reply.xpath(
             ".//InterfaceTable/Interface"
         ):
-            iface_table_interface = napalm.base.helpers.find_txt(
+            iface_table_interface = napalm_find_txt(
                 iface_table_interfaces, "Naming/InterfaceName"
             )
-            metric = napalm.base.helpers.find_txt(
+            metric = napalm_find_txt(
                 iface_table_interfaces,
                 "InterfaceStatusAndData/Enabled/PerTopologyData/Entry/Status/Enabled/Level2Metric",
             )
@@ -143,7 +135,7 @@ class CustomIOSXRDriver(IOSXRDriver):
                 continue
         return isis_neighbors
 
-    def get_arp_table_xr(self):
+    def get_arp_table_xr(self) -> dict:
         """Return dict of arp table by interface
 
         Filters interface ARP entries via rpc.
@@ -159,14 +151,14 @@ class CustomIOSXRDriver(IOSXRDriver):
         }
 
         for entry in rpc_reply.xpath(".//EntryTable/Entry"):
-            if napalm.base.helpers.find_txt(entry, "State") == "StateDynamic":
-                interface = napalm.base.helpers.find_txt(entry, "Naming/InterfaceName")
-                next_hop = napalm.base.helpers.find_txt(entry, "Naming/Address")
+            if napalm_find_txt(entry, "State") == "StateDynamic":
+                interface = napalm_find_txt(entry, "Naming/InterfaceName")
+                next_hop = napalm_find_txt(entry, "Naming/Address")
 
                 # convert to EUI format to match ip_interface
-                mac = str(
-                    EUI(napalm.base.helpers.find_txt(entry, "HardwareAddress"))
-                ).replace("-", ":")
+                mac = str(EUI(napalm_find_txt(entry, "HardwareAddress"))).replace(
+                    "-", ":"
+                )
 
             arp_table[interface] = copy.deepcopy(ARP_DEFAULTS)
             arp_table[interface].update(
@@ -177,7 +169,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return arp_table
 
-    def get_ipv6_nd_xr(self):
+    def get_ipv6_nd_xr(self) -> dict:
         """Return IPv6 Neighbors
 
         Uses CLI output due to poor RPC support
@@ -229,7 +221,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             except textfsm.parser.TextFSMTemplateError:
                 print("\nNo IPv6 Neighbors for this device.\n")
 
-    def get_optics_inventory_xr(self):
+    def get_optics_inventory_xr(self) -> dict:
         """Return dict of optics inventory by interface
 
         Runs CLI command and filters with TextFSM using tempfile
@@ -265,3 +257,22 @@ class CustomIOSXRDriver(IOSXRDriver):
                 }
             )
         return optics
+
+    def get_bgp_neighbor_routes(self, neighbor: str) -> list:
+        """Return list of accepted routes for the specified BGP neighbor.
+        Uses CLI.
+        """
+        command = f'show bgp neighbor {neighbor} routes | in "/" | ex "BGP"'
+        output = self.cli([command])[command]
+
+        tmp = tempfile.NamedTemporaryFile()
+        with open(tmp.name, "w") as f:
+            f.write(textfsm_bgp_rx)
+
+        with open(tmp.name, "r") as f:
+            parsed_output = textfsm.TextFSM(f).ParseText(output)
+
+        if parsed_output:
+            return [i[0] for i in parsed_output]
+        else:
+            return parsed_output

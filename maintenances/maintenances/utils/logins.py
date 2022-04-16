@@ -26,39 +26,26 @@ class Login:
 
     def jira_login(self):
         """Returns Jira object, uses CAS credentials."""
-        jira = Jira(
+        return Jira(
             url=self.jira_url,
             username=self.cas_user,
             password=self.cas_pass,
         )
-        return jira
-
-    def napalm_connect_test(self):
-        driver = get_network_driver("iosxr")
-        connection = driver(
-            hostname='137.164.84.240',
-            username='cenic',
-            password='cenic',
-            timeout=300,
-        )
-        return connection
 
     def napalm_connect(self, hostname, device_type):
         """Returns NAPALM object, uses MFA credentials."""
         driver = get_network_driver(device_type)
-        connection = driver(
+        return driver(
             hostname=hostname,
             username=self.mfa_user,
             password=self.mfa_pass + self.otp.now(),
-            timeout=300,
+            timeout=1000,
         )
-        return connection
 
     def pyez_connect(self, hostname):
         """Returns PyEZ object, uses MFA credentials."""
-        connection = Device(
+        return Device(
             host=hostname,
             user=self.mfa_user,
             passwd=self.mfa_pass + self.otp.now(),
         )
-        return connection

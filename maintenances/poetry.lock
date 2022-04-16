@@ -1013,7 +1013,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "deda501025bb208b6a20b6b6c7bd40dfef1890a440b659539f0aea2e9e606be2"
+content-hash = "4b34bccf7d455d77e03d952403bff812c43e412dc72342e109f0787a5c1e0d04"
 
 [metadata.files]
 atlassian-python-api = [

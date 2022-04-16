@@ -3,10 +3,11 @@ import yaml
 import json
 import typer
 from datetime import datetime
+from pprint import pprint
 from enum import Enum
 from pydantic import ValidationError
 
-from schemas import schemas
+from utils import schemas
 from lib import cisco, juniper
 
 """
@@ -49,8 +50,8 @@ def open_validate_input(model) -> dict:
         data = yaml.safe_load(f)
 
     try:
-        model(**data)
-        return data
+        data = model(**data)
+        return data.dict()
     except ValidationError as e:
         sys.exit(e)
 
@@ -62,6 +63,8 @@ def migrations():
     if data["device_type"] == "iosxr":
         device_getter = cisco.Main(data)
         device_getter.get_migration_data_full()
+    elif data["device_type"] == "junos":
+        print('Not currently supported.')
 
 
 @maintenances.command()
@@ -87,15 +90,15 @@ def snapshots(
     elif snapshots_type == "circuits":
         output = device_getter.circuits_pms()
 
-    # # write data
-    # filename = f'{data["hostname"]}_{datetime.today().strftime("%Y-%m-%d")}_'
-    # if diffs:
-    #     filename = filename + "post.json"
+    # write data
+    filename = f'{data["hostname"]}_{datetime.today().strftime("%Y-%m-%d")}_'
+    if diffs:
+        filename = filename + "post.json"
 
-    # else:
-    #     filename = filename + "pre.json"
-    #     with open(filename, "w") as f:
-    #         json.dump(output, f, indent=2)
+    else:
+        filename = "outputs/" + filename + "pre.json"
+        with open(filename, "w") as f:
+            json.dump(output, f, indent=2)
 
 
 if __name__ == "__main__":

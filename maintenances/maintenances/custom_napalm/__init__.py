@@ -15,3 +15,9 @@ Value Port (\S+)
 Start
   ^${Neighbor}\s+\d+\s+${MAC}\s+\S+\s+${Port}\s+\S+ -> Record
 """
+
+textfsm_bgp_rx = r"""Value Route ([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\/[0-9]{1,2})
+
+Start
+  ^\D{1,3}${Route} -> Record
+"""

@@ -2,11 +2,11 @@ import socket
 import ipaddress
 
 
-def xr_format_ip_int(data: dict):
+def format_ip_int(data: dict):
     """Collapse napalm ip_interface output to:
 
     {
-        {{ INT }}:
+        {{ Interface }}:
             ipv4_address: {{ IP }},
             ipv6_address: {{ IP }}
     }
@@ -21,12 +21,11 @@ def xr_format_ip_int(data: dict):
                 ip_dict.update(
                     {f"ipv{i}_address": f"{address}/{ip[address]['prefix_length']}"}
                 )
-
         output.update({k: ip_dict})
     return output
 
 
-def xr_collapse_bgp(iface_dict, bgp_dict):
+def collapse_bgp(iface_dict, bgp_dict):
     """Collapse BGP dictionary onto the consolidated interface dictionary.
 
     BGP peerings matched with Interface by ARP/ND neighbors. Once a peering
@@ -68,7 +67,7 @@ def xr_collapse_bgp(iface_dict, bgp_dict):
     return iface_dict, bgp_dict
 
 
-def xr_format_bgp_detail(data: dict):
+def format_bgp_detail(data: dict):
     """Format BGP detail output to be keyed by peer IP.
 
     NAPALM BGP detail output is by default a list of ASNs.
@@ -101,6 +100,7 @@ def xr_format_bgp_detail(data: dict):
             bgp_output.update(
                 {
                     peer["remote_address"]: {
+                        'is_up': peer['up'],
                         "local_as": peer["local_as"],
                         "remote_as": peer["remote_as"],
                         "router_id": peer["router_id"],
@@ -108,11 +108,8 @@ def xr_format_bgp_detail(data: dict):
                         "local_dns": local_dns,
                         "remote_address": peer["remote_address"],
                         "remote_dns": remote_dns,
-                        "multihop": peer["multihop"],
-                        "multipath": peer["multipath"],
                         "import_policy": peer["import_policy"],
                         "export_policy": peer["export_policy"],
-                        "connection_state": peer["connection_state"],
                         f"{ip_type}_received_prefix": peer["received_prefix_count"],
                         f"{ip_type}_accepted_prefix": peer["accepted_prefix_count"],
                         f"{ip_type}_advertised_prefix": peer["advertised_prefix_count"],
@@ -167,3 +164,21 @@ def xr_sort_df_circuits_columns(df):
         ]
     ]
     return df
+
+
+def parse_junos_bgp_routes(data: dict, table: str, route: str) -> dict:
+    """Accepts napalm return: dict of list of dicts
+
+    Returns single best route, filters some of the data out.
+    """
+    for i in data[route]:
+        if i['current_active'] and i['routing_table'] == table:
+            return {
+                route: {
+                    'Next-Hop': i['next_hop'],
+                    'Local Preference': i['protocol_attributes']['local_preference'],
+                    'AS-Path': i['protocol_attributes']['as_path'],
+                    'MED': i['protocol_attributes']['metric'],
+                    'Communities': i['protocol_attributes']['communities'],
+                }
+            }
