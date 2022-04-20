@@ -40,7 +40,7 @@ ISISInterfaceTable:
 
 ISISInterfaceView:
   fields:
-    isis_metric: metric-two
+    isis_metric: {metric-two: int}
 
 #
 # MSDP Neighbors

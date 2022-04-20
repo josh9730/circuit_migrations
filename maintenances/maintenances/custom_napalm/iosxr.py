@@ -76,7 +76,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             "isis_state": False,
             "isis_nh": "",
             "isis_ipv6": False,
-            "isis_metric": "",
+            "isis_metric": 0,
         }
 
         isis_rpc_request = "<Get><Operational><ISIS><InstanceTable><Instance><Naming>\
@@ -130,7 +130,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
 
             try:
-                isis_neighbors[iface_table_interface].update({"isis_metric": metric})
+                isis_neighbors[iface_table_interface].update({"isis_metric": int(metric)})
             except KeyError:  # Loopback 0 has metric, not needed
                 continue
         return isis_neighbors

@@ -114,6 +114,7 @@ def snapshots(
                     pass
 
         finally:
+            print(f'Writing output to {filename}')
             with open("outputs/" + filename, "w") as f:
                 json.dump(output, f, indent=2)
 
@@ -123,16 +124,19 @@ def snapshots(
             pprint(diffs, indent=2)
             print("\n", "-" * 10, "END DIFFS", "-" * 10, "\n")
 
+            print(f'Writing diffs to {filename}')
             with open("outputs/" + base_filename + "diffs.json", "w") as f:
                 json.dump(diffs, f, indent=2)
 
     else:
         filename = base_filename + "pre.json"
+        print(f'Writing output to {filename}')
         with open("outputs/" + filename, "w") as f:
             json.dump(output, f, indent=2)
 
     if jira:
         jira = logins.Login().jira_login()
+        print(f'Uploading {filename} to {data["ticket"]}.')
         jira.add_attachment(data['ticket'], 'output/' + filename)
 
 
