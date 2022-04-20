@@ -34,47 +34,47 @@ Two main reasons: Juniper and IOS-XR data is retrieved and presented equivalentl
 
 ```json
 {
-  {{ CIRCUIT ID }}: {
+  "CLR-1234": {
     "Interface": {
-      "Name": str,
-      "Description": str,
-      "Enabled": bool,
-      "Up": bool,
-      "MTU": int,
+      "Name": "Te0/0/2/0",
+      "Description": "10G to Nowhere",
+      "Enabled": true,
+      "Up": true,
+      "MTU": 1500,
       "Counters": {
-        "TX Errors": int,
-        "TX Discards": int,
-        "RX Errors": int,
-        "RX Discards": int
+        "TX Errors": 10,
+        "TX Discards": 0,
+        "RX Errors": 0,
+        "RX Discards": 0
       },
       "IPv4/IPv6": {
-        "MAC": str,  # EUI-64 formatted MAC
-        "IPv4 Address": ipaddress,
-        "IPv6 Address": ipaddress,
-        "DNS": str,  # A Record if present
+        "MAC": "50:87:89:70:13:B7",
+        "IPv4 Address": "1.1.1.1/31",
+        "IPv6 Address": "",
+        "DNS": "10g--cpe1--agg1",
         "ARP/ND": {
-          "ARP Next-Hop": ipaddress,
-          "ARP NH MAC": str,  # EUI-64 formatted MAC
-          "IPv6 ND Next-Hop": ipaddress,
-          "ND NH MAC": str  # EUI-64 formatted MAC
+          "ARP Next-Hop": "1.1.1.2",
+          "ARP NH MAC": "50:87:89:70:13:B7",
+          "IPv6 ND Next-Hop": "",
+          "ND NH MAC": "50:87:89:70:13:B7"
         }
       }
     },
     "IS-IS": {
-      "Neighbor": str,  # IS-IS system-id (name)
-      "NH": str,
-      "Metric": int,
-      "MPLS": bool
+      "Neighbor": "agg1",
+      "NH": "1.1.1.2",
+      "Metric": 100,
+      "MPLS": true
     },
     "BGP": {
-      "{{ PREFIX }}": {
-        "Next-Hop": ipaddress,
-        "Local Preference": int,
-        "AS-Path": str,
-        "MED": int,
+      "10.0.0.0/24": {
+        "Next-Hop": "1.1.1.2",
+        "Local Preference": 100,
+        "AS-Path": "100 200",
+        "MED": 0,
         "Communities": [
           "100:100",
-          ...
+          "200:200"
         ]
       }
     }
