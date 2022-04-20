@@ -17,7 +17,7 @@ from . import (
 class CustomIOSXRDriver(IOSXRDriver):
     """Extends base IOSXRDriver for custom methods"""
 
-    def get_pim_neighbors_xr(self) -> list:
+    def get_pim_neighbors_custom(self) -> list:
         """Returns list of PIM-enabled interfaces."""
         pim_neighbors = []
         pim_rpc_request = "<Get><Operational><PIM><Active><DefaultContext><NeighborSummaryTable>\
@@ -28,7 +28,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             pim_neighbors.append(napalm_find_txt(interfaces, "Naming/InterfaceName"))
         return pim_neighbors
 
-    def get_msdp_summary_xr(self) -> list:
+    def get_msdp_neighbrs_custom(self) -> list:
         """Returns dict of MSDP peerings keyed by peer IP."""
         msdp_peers = []
         msdp_rpc_request = "<Get><Operational><MSDP><Active><DefaultContext><PeerSummaryTable>\
@@ -41,7 +41,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             msdp_peers.append(napalm_find_txt(peers, "Naming/PeerAddress"))
         return msdp_peers
 
-    def get_mpls_interfaces_xr(self):
+    def get_mpls_interfaces_custom(self):
         """Returns dict of MPLS enabled intefaces."""
         mpls_interfaces = {}
         MPLS_DEFAULTS = {
@@ -64,7 +64,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return mpls_interfaces
 
-    def get_isis_neighbors_xr(self) -> dict:
+    def get_isis_interfaces_custom(self) -> dict:
         """Returns dict of ISIS Neighborship parameters
 
         Returns dict of adjacencies via rpc.
@@ -135,7 +135,7 @@ class CustomIOSXRDriver(IOSXRDriver):
                 continue
         return isis_neighbors
 
-    def get_arp_table_xr(self) -> dict:
+    def get_arp_table_custom(self) -> dict:
         """Return dict of arp table by interface
 
         Filters interface ARP entries via rpc.
@@ -169,7 +169,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return arp_table
 
-    def get_ipv6_nd_xr(self) -> dict:
+    def get_nd_table_custom(self) -> dict:
         """Return IPv6 Neighbors
 
         Uses CLI output due to poor RPC support
@@ -221,7 +221,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             except textfsm.parser.TextFSMTemplateError:
                 print("\nNo IPv6 Neighbors for this device.\n")
 
-    def get_optics_inventory_xr(self) -> dict:
+    def get_optics_inventory_custom(self) -> dict:
         """Return dict of optics inventory by interface
 
         Runs CLI command and filters with TextFSM using tempfile

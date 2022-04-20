@@ -1,0 +1,168 @@
+---
+
+#
+# MPLS Interface Brief
+#
+
+MPLSInterfaceTable:
+  rpc: get-mpls-interface-information
+  key:
+    - interface-name
+  item: mpls-interface
+  view: MPLSInterfaceView
+
+MPLSInterfaceView:
+  fields:
+    # port: interface-name
+    state: {mpls-interface-state: True=Up}
+
+#
+# ISIS Adjacency
+#
+
+ISISAdjacencyTable:
+  rpc: get-isis-adjacency-information
+  args:
+    extensive: True
+  key:
+    - interface-name
+  item: isis-adjacency
+  view: ISISAdjacencyView
+
+ISISAdjacencyView:
+  fields:
+    system_name: system-name
+    state: {adjacency-state: True=Up}
+    ipv6: {adjacency-flag: "True=Speaks: IP, IPv6"}
+    isis_nh: ip-address
+
+ISISInterfaceTable:
+  rpc: get-isis-interface-information
+  key:
+    - interface-name
+  item: isis-interface
+  view: ISISInterfaceView
+
+ISISInterfaceView:
+  fields:
+    metric: metric-two
+
+#
+# MSDP Neighbors
+#
+
+MSDPNeighborTable:
+  rpc: get-msdp-information
+  key: msdp-peer-address
+  item: msdp-peer
+
+#
+# PIM Neighbors
+#
+
+PIMNeighborTable:
+  rpc: get-pim-neighbors-information
+  key: pim-neighbor/pim-interface-name
+  item: pim-interface
+
+#
+# ARP
+#
+
+ARPTable:
+  rpc: get-arp-table-information
+  key: interface-name
+  item: arp-table-entry
+  view: ARPView
+
+ARPView:
+  fields:
+    arp_nh: ip-address
+    arp_nh_mac: mac-address
+
+#
+# IPv6 ND
+#
+
+NDTable:
+  rpc: get-ipv6-nd-information
+  key: ipv6-nd-interface-name
+  item: ipv6-nd-entry
+  view: NDView
+
+NDView:
+  fields:
+    nd_nh: ipv6-nd-neighbor-address
+    nd_nd_mac: ipv6-nd-neighbor-l2-address
+
+#
+# Override get_bgp_neighbor_detail
+#
+
+junos_bgp_neighbors_table:
+  rpc: get-bgp-neighbor-information
+  item: bgp-peer
+  key: peer-id
+  view: junos_bgp_neighbors_view
+
+junos_bgp_neighbors_view:
+  fields:
+    up: {peer-state: True=Established}
+    local_as: {local-as: int}
+    remote_as: {peer-as: int}
+    local_as_2: {bgp-peer-header/local-as: int}
+    remote_as_2: {bgp-peer-header/peer-as: int}
+    router_id: {peer-id: unicode}
+    local_address: local-id
+    routing_table: peer-fwd-rti
+    import_policy: {bgp-option-information/import-policy: unicode}
+    export_policy: {bgp-option-information/export-policy: unicode}
+    rib: junos_bgp_rib_table
+
+#
+# Get BGP Rx Routes info
+#
+
+junos_bgp_rx_route_table:
+  rpc: get-route-information
+  args:
+    extensive: True
+    receive_protocol_name: bgp
+  item: route-table/rt
+  key: rt-destination
+  view: junos_bgp_rx_route_view
+
+junos_bgp_rx_route_view:
+  fields:
+    prefix_length: rt-prefix-length
+    next_hop: rt-entry/nh/to
+    as_path: rt-entry/as-path
+    local_preference: {rt-entry/local-preference: int}
+    communities: rt-entry/communities/community
+    metric: {rt-entry/med: int}
+
+#
+# Custom 'get_route_to', return less info than default getter, no need for
+# protocols other than BGP. Used for non-Juniper device snapshots
+#
+
+junos_bgp_route_table:
+  rpc: get-route-information
+  args:
+    extensive: True
+    exact: True
+    active_path: True
+  args_key: destination
+  item: route-table/rt/rt-entry/nh
+  key: via
+  view: junos_bgp_table_view
+
+junos_bgp_table_view:
+  fields:
+    destination: {../../rt-destination: unicode}
+    prefix_length: {../../rt-prefix-length: int}
+    next_hop: {to: unicode}
+    as_path: {../as-path: unicode}
+    local_preference: {../local-preference: int}
+    communities: {../communities/community: unicode}
+    metric: {../metric: int}

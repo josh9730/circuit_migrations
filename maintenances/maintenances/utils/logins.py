@@ -1,5 +1,4 @@
 from napalm.base import get_network_driver
-from jnpr.junos import Device
 from atlassian import Jira
 import keyring
 import pyotp
@@ -40,12 +39,4 @@ class Login:
             username=self.mfa_user,
             password=self.mfa_pass + self.otp.now(),
             timeout=1000,
-        )
-
-    def pyez_connect(self, hostname):
-        """Returns PyEZ object, uses MFA credentials."""
-        return Device(
-            host=hostname,
-            user=self.mfa_user,
-            passwd=self.mfa_pass + self.otp.now(),
         )

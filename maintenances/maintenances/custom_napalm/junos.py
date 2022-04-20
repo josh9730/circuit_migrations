@@ -13,6 +13,7 @@ class CustomJunOSDriver(JunOSDriver):
     """Extends base JunOSDriver for custom methods."""
 
     def rpc_get(self, rpc_input, msg):
+        """Method for rpc get, return errors."""
         try:
             return rpc_input.get()
         except RpcError as rpcerr:
@@ -74,22 +75,12 @@ class CustomJunOSDriver(JunOSDriver):
         return mpls
 
     def get_msdp_neighbrs_custom(self) -> list:
-        """Via PyEZ, return list of MSDP neighbors.
-
-        [
-            {{ Neighbor IP }}
-        ]
-        """
+        """Via PyEZ, return list of MSDP neighbors."""
         rpc = junos_cust_views.MSDPNeighborTable(self.device)
         return self.rpc_get(rpc, "MSDP Neighbors").keys()
 
     def get_pim_neighbors_custom(self) -> list:
-        """Via PyEZ, return list of PIM neighbors.
-
-        [
-            {{ PIM Interface }}
-        ]
-        """
+        """Via PyEZ, return list of PIM neighbors."""
         rpc = junos_cust_views.PIMNeighborTable(self.device)
         return self.rpc_get(rpc, "PIM Interfaces").keys()
 
@@ -201,3 +192,85 @@ class CustomJunOSDriver(JunOSDriver):
                 neighbor_details.update({rib_table[0]: dict(rib_table[1])})
             bgp_detail.update({neighbor[0].split("+")[0]: neighbor_details})
         return bgp_detail
+
+    def _bgp_routes_format(self, route_dict: dict, destination: str) -> dict:
+        """Takes dict created from returned tuple, and parses."""
+        prefix_length = route_dict.pop("prefix_length", 32)
+        destination = f"{destination}/{prefix_length}"
+
+        as_path = route_dict.get("as_path")
+        if as_path is not None:  # return only AS Numbers
+            as_path = (
+                as_path.split(" I ")[0]
+                .replace("AS path:", "")
+                .replace("I", "")
+                .replace("\n Recorded", "")
+                .strip()
+            )
+
+        communities = route_dict.get("communities")
+        if communities is not None and type(communities) is not list:
+            communities = [communities]
+
+        return {
+            destination: {
+                "Next-Hop": route_dict["next_hop"],
+                "Local Preference": route_dict["local_preference"],
+                "AS-Path": as_path,
+                "MED": route_dict["metric"],
+                "Communities": communities,
+            }
+        }
+
+    def get_bgp_neighbor_routes(self, peer: str) -> list:
+        """Via PyEZ, return BGP neighbor information from direct neighbor.
+        Equivalent to:
+
+        show route receive-protobgp bgp {{ NEIGHBOR }} table {{ table }} extensive
+        """
+        routes = {}
+        routes_table = junos_cust_views.junos_bgp_rx_route_table(self.device)
+        table_key = "" if netaddr.IPAddress(peer).version == 4 else "6"
+
+        kwargs = {"peer": peer, "table": f"inet{table_key}.0"}
+        try:
+            routes_table.get(**kwargs)
+        except RpcError as rpcerr:
+            log.error("Unable to retrieve BGP Rx Routes information:")
+            log.error(str(rpcerr))
+            routes_table = {}
+
+        for route in routes_table.items():
+            route_dict = {elem[0]: elem[1] for elem in route[1]}
+            routes.update(self._bgp_routes_format(route_dict, route[0]))
+
+        return routes
+
+    def get_route_to(self, routes_list: list, neighbor="") -> dict:
+        """Custom implementation of default 'get_route_to' getter. Returns less info,
+        specific to BGP. Eliminates the need for a parser. Much of this is from the
+        Napalm getter.
+
+        Accepts a list of destinations, returns a nested dict of results.
+        """
+        routes = {}
+        if not isinstance(routes_list, list):
+            raise TypeError("Please a valid list of destinations")
+
+        routes_table = junos_cust_views.junos_bgp_route_table(self.device)
+
+        for route in routes_list:
+            table_key = "" if netaddr.IPNetwork(route).version == 4 else "6"
+            try:
+                route_output = routes_table.get(
+                    route, table=f"inet{table_key}.0"
+                ).items()
+            except RpcError as rpcerr:
+                log.error("Unable to retrieve BGP Rx Routes information:")
+                log.error(str(rpcerr))
+                routes_table = {}
+
+            route_dict = {elem[0]: elem[1] for elem in route_output[0][1]}
+            destination = route_dict.pop("destination", "")
+            routes.update(self._bgp_routes_format(route_dict, destination))
+        return routes

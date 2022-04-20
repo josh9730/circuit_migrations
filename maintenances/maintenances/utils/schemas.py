@@ -7,6 +7,8 @@ from pydantic import (
     validator,
 )
 
+# get Jira list of projects
+
 
 class BaseYAML(BaseModel):
 
@@ -55,7 +57,7 @@ class Circuit(BaseModel):
 
     port: str
     cpe: Optional[str] = None
-    clr: str
+    clr: int
     v4_neighbor: Optional[ipaddress.IPv4Address] = None
     v6_neighbor: Optional[ipaddress.IPv6Address] = None
 
@@ -68,7 +70,6 @@ class Circuit(BaseModel):
     def v4_neighbor_ip(cls, v, values) -> str:
         """Get IPv4 neighbor IP from cpe hostname if CPE set
         and no neighbor addresses defined."""
-        print(v)
         if values["cpe"] and not values.get("v4_neighbor"):
             try:
                 return socket.gethostbyname(values["cpe"])

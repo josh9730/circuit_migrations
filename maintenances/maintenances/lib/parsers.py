@@ -1,5 +1,5 @@
 import socket
-import ipaddress
+import netaddr
 
 
 def format_ip_int(data: dict):
@@ -78,11 +78,9 @@ def format_bgp_detail(data: dict):
     for peer_list in data.values():
         for peer in peer_list:
 
-            ip_type = "v4"
-            if isinstance(
-                ipaddress.ip_address(peer["remote_address"]), ipaddress.IPv6Address
-            ):
-                ip_type = "v6"
+            ip_type = (
+                "v4" if netaddr.IPAddress(peer["remote_address"]).version == 4 else "v6"
+            )
 
             dns = "No A/AAAA Record"
             try:
@@ -100,7 +98,7 @@ def format_bgp_detail(data: dict):
             bgp_output.update(
                 {
                     peer["remote_address"]: {
-                        'is_up': peer['up'],
+                        "is_up": peer["up"],
                         "local_as": peer["local_as"],
                         "remote_as": peer["remote_as"],
                         "router_id": peer["router_id"],
@@ -119,7 +117,7 @@ def format_bgp_detail(data: dict):
     return bgp_output
 
 
-def xr_sort_df_circuits_columns(df):
+def sort_df_circuits_columns(df):
     df = df[
         [
             "interfaces",
@@ -145,14 +143,11 @@ def xr_sort_df_circuits_columns(df):
             "nd_mac",
             "local_as",
             "remote_as",
-            "connection_state",
             "router_id",
             "local_address",
             "local_dns",
             "remote_address",
             "remote_dns",
-            "multihop",
-            "multipath",
             "import_policy",
             "export_policy",
             "v4_received_prefix",
@@ -164,21 +159,3 @@ def xr_sort_df_circuits_columns(df):
         ]
     ]
     return df
-
-
-def parse_junos_bgp_routes(data: dict, table: str, route: str) -> dict:
-    """Accepts napalm return: dict of list of dicts
-
-    Returns single best route, filters some of the data out.
-    """
-    for i in data[route]:
-        if i['current_active'] and i['routing_table'] == table:
-            return {
-                route: {
-                    'Next-Hop': i['next_hop'],
-                    'Local Preference': i['protocol_attributes']['local_preference'],
-                    'AS-Path': i['protocol_attributes']['as_path'],
-                    'MED': i['protocol_attributes']['metric'],
-                    'Communities': i['protocol_attributes']['communities'],
-                }
-            }

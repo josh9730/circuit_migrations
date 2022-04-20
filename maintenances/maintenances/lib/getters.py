@@ -1,45 +1,28 @@
 import time
 import socket
-import ipaddress
 import pandas as pd
-from napalm.base.exceptions import ConnectionException
 
 from utils.logins import Login
 from utils.gsheets import GSheets
 from lib import parsers
 
 
-
-
-# change PIM, MSDP to lists of IPs
-# make match format of Juniper
-# EUI for ND
-
-
-
-
-
-
 class Main:
-    """Getter for IOS-XR devices (ASR-9010)"""
-
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.hostname = socket.gethostbyname(
             data["hostname"]
         )  # using hostname breaks on XR
         self.data = data
+        self.device_type = data["device_type"]
         self.logins = Login()
-        self.start_time = time.time()
 
-        self.napalm_connection = self.logins.napalm_connect(self.hostname, "iosxr")
+        self.start_time = time.time()
+        self.napalm_connection = self.logins.napalm_connect(
+            self.hostname, self.device_type
+        )
         self.napalm_connection.open()
 
-        if not self.napalm_connection.is_alive():
-            raise ConnectionException(
-                "\n\nConnection not established, wait 30s and re-try.\n"
-            )
-
-    def interface_common_getters(self, extra_inputs: tuple) -> dict:
+    def _interface_common_getters(self, extra_inputs: tuple) -> dict:
         """Return inputs and collapse onto ifaces_all. Meant to be used
         for common getters to migrations and device_pms.
 
@@ -47,23 +30,28 @@ class Main:
         """
         ifaces_all = self.napalm_connection.get_interfaces()
         ip_ifaces = parsers.format_ip_int(self.napalm_connection.get_interfaces_ip())
-        mpls = self.napalm_connection.get_mpls_interfaces_xr()
-        isis = self.napalm_connection.get_isis_neighbors_xr()
-        arp = self.napalm_connection.get_arp_table_xr()
-        nd = self.napalm_connection.get_ipv6_nd_xr()
+        mpls = self.napalm_connection.get_mpls_interfaces_custom()
+        isis = self.napalm_connection.get_isis_interfaces_custom()
+        arp = self.napalm_connection.get_arp_table_custom()
+        nd = self.napalm_connection.get_nd_table_custom()
 
         for i in (ip_ifaces, ip_ifaces, mpls, isis, arp, nd, *extra_inputs):
             {ifaces_all[k].update(v) for (k, v) in i.items() if ifaces_all.get(k)}
+
+        for i in ifaces_all:
+            if not ifaces_all[i].get("mpls_enabled"):
+                ifaces_all[i].update({"mpls_enabled": False})
+
         return ifaces_all
 
     def get_migration_data_full(self):
         """Return outputs for Device-wide planning.
-        Typically for planning router refreshes
+        Typically for planning router refreshes, not tested on Junos.
         """
-        optics = self.napalm_connection.get_optics_inventory_xr()
-        interfaces_all = self.interface_common_getters((optics,))
+        optics = self.napalm_connection.get_optics_inventory_custom()
+        interfaces_all = self._interface_common_getters((optics,))
 
-        bgp = parsers.xr_format_bgp_detail(
+        bgp = parsers.format_bgp_detail(
             self.napalm_connection.get_bgp_neighbors_detail()
         )
         self.napalm_connection.close()
@@ -77,26 +65,31 @@ class Main:
                 interfaces.update({iface: interfaces_all[iface]})
 
         # collapse bgp onto interfaces
-        interfaces, bgp_missing_int = parsers.xr_collapse_bgp(interfaces, bgp)
+        interfaces, bgp_missing_int = parsers.collapse_bgp(interfaces, bgp)
 
         # create DataFrames for pushing to GSheets
         interfaces_df = pd.DataFrame.from_dict(interfaces, orient="index")
         interfaces_df["interfaces"] = interfaces_df.index
-        interfaces_df = parsers.xr_sort_df_circuits_columns(interfaces_df)
+        interfaces_df = parsers.sort_df_circuits_columns(interfaces_df)
         bgp_missing_df = pd.DataFrame.from_dict(bgp_missing_int, orient="index")
         GSheets(self.data).dump_circuits_all(interfaces_df, bgp_missing_df)
 
-    def devices_pms(self):
-        """Dumps JSON of Device-specific outputs for PMs."""
-        iface_counters = self.napalm_connection.get_interfaces_counters()
-        interfaces_all = self.interface_common_getters((iface_counters,))
+    def devices_pms(self) -> dict:
+        """Dumps JSON of Device-specific outputs for PMs.
 
+        optics???
+        """
+        iface_counters = self.napalm_connection.get_interfaces_counters()
+        interfaces_all = self._interface_common_getters((iface_counters,))
+
+        bgp = self.napalm_connection.get_bgp_neighbors_detail()
+        if not self.device_type == "junos":  # junos has custom getter
+            bgp = parsers.format_bgp_detail(bgp)
+
+        msdp = self.napalm_connection.get_msdp_neighbrs_custom()
+        pim = self.napalm_connection.get_pim_neighbors_custom()
         software = self.napalm_connection.get_facts()["os_version"]
-        bgp = parsers.format_bgp_detail(
-            self.napalm_connection.get_bgp_neighbors_detail()
-        )
-        msdp = self.napalm_connection.get_msdp_summary_xr()
-        pim = self.napalm_connection.get_pim_neighbors_xr()
+
         self.napalm_connection.close()
 
         # collapse bgp onto interfaces
@@ -104,46 +97,29 @@ class Main:
 
         output = {
             "Software": software,
-            "Non-Port BGP": bgp,
+            "Non-Port BGP": bgp_missing_int,
             "MSDP": msdp,
             "PIM": pim,
-            "Interfaces": interfaces_all,
+            "Interfaces": interfaces,
         }
         return output
 
-    def circuits_global_bgp(self, circuit: dict, routes_list: list) -> dict:
-        """Per-Circuit BGP data."""
-        routes_dict = {}
-        for route in routes_list:
-            if isinstance(ipaddress.ip_network(route), ipaddress.IPv4Network):
-                table = "inet.0"
-            else:
-                table = "inet6.0"
-
-            route_data = self.juniper_connection.get_route_to(
-                destination=route, protocol="bgp"
-            )
-            route_parsed = parsers.parse_junos_bgp_routes(route_data, table, route)
-            routes_dict.update(route_parsed)
-        return routes_dict
-
     def circuits_pms(self) -> dict:
-        """Uses Napalm XR to get all data except BGP route detail.
-        Napalm Junos (to 'global' router) used to get BGP PAs due to
-        poor support on XR.
+        """Uses Napalm to get all data except BGP route detail. Multiple
+        custom getters are defined (and override in some cases).
 
         Uses full device custom getters from Device PMs for convienence.
         """
-        start_time = time.time()
         iface_counters = self.napalm_connection.get_interfaces_counters()
-        interfaces_all = self.interface_common_getters((iface_counters,))
+        interfaces_all = self._interface_common_getters((iface_counters,))
 
         output_dict = {}
         for counter, circuit in enumerate(self.data["circuits"]):
             circuit_data = interfaces_all[circuit["port"]]
+            clr = f'CLR-{circuit["clr"]}'
             output_dict.update(
                 {
-                    circuit["clr"]: {
+                    clr: {
                         "Interface": {
                             "Name": circuit["port"],
                             "Description": circuit_data["description"],
@@ -170,14 +146,15 @@ class Main:
                 }
             )
 
-            # iBGP
+            # iBGP, v4/6_neighbor added during schema validation
             if circuit_data.get("isis_state"):
-                output_dict[circuit["clr"]].update(
+                output_dict[clr].update(
                     {
                         "IS-IS": {
                             "Neighbor": circuit_data["isis_neighbor"],
                             "NH": circuit_data["isis_nh"],
                             "Metric": circuit_data["isis_metric"],
+                            "MPLS": circuit_data["mpls_enabled"],
                         }
                     }
                 )
@@ -187,30 +164,60 @@ class Main:
                 circuit["v4_neighbor"] = circuit_data.get("arp_nh")
                 circuit["v6_neighbor"] = circuit_data.get("nd_nh")
 
-            if circuit["v4_neighbor"]:
-                routes_list = self.napalm_connection.get_bgp_neighbor_routes(
-                    circuit["v4_neighbor"]
-                )
-            if circuit["v6_neighbor"]:
-                routes_list_v6 = self.napalm_connection.get_bgp_neighbor_routes(
-                    circuit["v6_neighbor"]
-                )
-                if routes_list_v6:
-                    routes_list.append(routes_list_v6)
+            # 'get_bgp_neighbor_routes' for Junos is able to retrieve both the
+            # list of routes like the XR getter, as well as all other needed
+            # information, eliminating the need for another get-route-to call.
+            if self.device_type == "junos":
+                routes_dict = {}
+                if circuit["v4_neighbor"]:
+                    routes_dict.update(
+                        self.napalm_connection.get_bgp_neighbor_routes(
+                            circuit["v4_neighbor"]
+                        )
+                    )
+                if circuit["v6_neighbor"]:
+                    routes_dict.update(
+                        self.napalm_connection.get_bgp_neighbor_routes(
+                            circuit["v6_neighbor"]
+                        )
+                    )
 
-            # if first loop, sleep and login to global_router
-            if counter == 0:
-                elapsed_time = time.time() - start_time
-                if elapsed_time < 30:
-                    time.sleep(30 - elapsed_time)
-                self.juniper_connection = self.logins.napalm_connect(
-                    self.data["global_router"], "junos"
-                )
-                self.juniper_connection.open()
+            # Non-Junos uses a Junos 'global' router to get the routes data
+            # The 'get_bgp_neighbor_routes for non-Junos returns a list of routes
+            # (via an XR CLI command) and then passes this list to a custom.
+            # Junos 'get-route-to' getter
+            else:
+                routes_list = []
+                if circuit["v4_neighbor"]:
+                    routes_list.append(
+                        self.napalm_connection.get_bgp_neighbor_routes(
+                            circuit["v4_neighbor"]
+                        )
+                    )
+                if circuit["v6_neighbor"]:
+                    routes_list.append(
+                        self.napalm_connection.get_bgp_neighbor_routes(
+                            circuit["v6_neighbor"]
+                        )
+                    )
 
-            routes_dict = self.circuits_global_bgp(circuit, routes_list)
-            output_dict[circuit["clr"]].update({"BGP": routes_dict})
+                # reset OTP for new napalm connection
+                if counter == 0:
+                    elapsed_time = time.time() - self.start_time
+                    if elapsed_time < 30:
+                        time.sleep(30 - elapsed_time)
+                    self.juniper_connection = self.logins.napalm_connect(
+                        self.data["global_router"], "junos"
+                    )
+                    self.juniper_connection.open()
+
+                routes_dict = self.juniper_connection.get_route_to(routes_list)
+            output_dict[clr].update({"BGP": routes_dict})
 
         self.napalm_connection.close()
-        self.juniper_connection.close()
+        try:
+            self.juniper_connection.close()
+        except AttributeError:
+            pass
+
         return output_dict

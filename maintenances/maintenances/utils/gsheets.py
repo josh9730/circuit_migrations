@@ -1,5 +1,4 @@
 import pygsheets
-import pandas as pd
 
 
 class GSheets:

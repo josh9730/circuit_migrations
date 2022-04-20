@@ -8,21 +8,7 @@ from enum import Enum
 from pydantic import ValidationError
 
 from utils import schemas
-from lib import cisco, juniper
-
-"""
-Pending:
-    - Validating input in data.yaml fully
-    - fix otp re-attempt
-    - mock testing
-    - napalm compliance testing
-
-
-
-    - re-do logins with decorator?
-    - support for routing instances
-    - support for MPLS, eline, elan, IPVPN?
-"""
+from lib import getters
 
 maintenances = typer.Typer(
     add_completion=False,
@@ -60,11 +46,14 @@ def open_validate_input(model) -> dict:
 def migrations():
     """Pull stuff"""
     data = open_validate_input(schemas.MigrationsSchema)
-    if data["device_type"] == "iosxr":
-        device_getter = cisco.Main(data)
-        device_getter.get_migration_data_full()
-    elif data["device_type"] == "junos":
-        print('Not currently supported.')
+    # if data["device_type"] == "iosxr":
+    #     device_getter = cisco.Main(data)
+    #     device_getter.get_migration_data_full()
+    # elif data["device_type"] == "junos":
+    #     print('Not currently supported.')
+
+    getter = getters.Main(data)
+    getter.get_migration_data_full()
 
 
 @maintenances.command()
@@ -78,17 +67,25 @@ def snapshots(
     snapshots_schema = SnapshotsOptions.return_schema(snapshots_type)
     data = open_validate_input(snapshots_schema)
 
-    # initialize connection
-    if data["device_type"] == "iosxr":
-        device_getter = cisco.Main(data)
-    elif data["device_type"] == "junos":
-        device_getter = juniper.Main(data)
+    # # initialize connection
+    # if data["device_type"] == "iosxr":
+    #     device_getter = cisco.Main(data)
+    # elif data["device_type"] == "junos":
+    #     device_getter = juniper.Main(data)
+
+    # # run PMs
+    # if snapshots_type == "devices":
+    #     output = device_getter.devices_pms()
+    # elif snapshots_type == "circuits":
+    #     output = device_getter.circuits_pms()
+
+    getter = getters.Main(data)
 
     # run PMs
     if snapshots_type == "devices":
-        output = device_getter.devices_pms()
+        output = getter.devices_pms()
     elif snapshots_type == "circuits":
-        output = device_getter.circuits_pms()
+        output = getter.circuits_pms()
 
     # write data
     filename = f'{data["hostname"]}_{datetime.today().strftime("%Y-%m-%d")}_'
