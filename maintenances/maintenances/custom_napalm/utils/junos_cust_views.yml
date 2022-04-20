@@ -1,20 +1,17 @@
 ---
-
 #
 # MPLS Interface Brief
 #
 
 MPLSInterfaceTable:
   rpc: get-mpls-interface-information
-  key:
-    - interface-name
+  key: interface-name
   item: mpls-interface
   view: MPLSInterfaceView
 
 MPLSInterfaceView:
   fields:
-    # port: interface-name
-    state: {mpls-interface-state: True=Up}
+    mpls_enabled: { mpls-interface-state: True=Up }
 
 #
 # ISIS Adjacency
@@ -24,28 +21,26 @@ ISISAdjacencyTable:
   rpc: get-isis-adjacency-information
   args:
     extensive: True
-  key:
-    - interface-name
+  key: interface-name
   item: isis-adjacency
   view: ISISAdjacencyView
 
 ISISAdjacencyView:
   fields:
-    system_name: system-name
-    state: {adjacency-state: True=Up}
-    ipv6: {adjacency-flag: "True=Speaks: IP, IPv6"}
+    isis_neighbor: system-name
+    isis_state: { adjacency-state: True=Up }
+    isis_ipv6: { adjacency-flag: "True=Speaks: IP, IPv6" }
     isis_nh: ip-address
 
 ISISInterfaceTable:
   rpc: get-isis-interface-information
-  key:
-    - interface-name
+  key: interface-name
   item: isis-interface
   view: ISISInterfaceView
 
 ISISInterfaceView:
   fields:
-    metric: metric-two
+    isis_metric: metric-two
 
 #
 # MSDP Neighbors
@@ -93,31 +88,44 @@ NDTable:
 NDView:
   fields:
     nd_nh: ipv6-nd-neighbor-address
-    nd_nd_mac: ipv6-nd-neighbor-l2-address
+    nd_nh_mac: ipv6-nd-neighbor-l2-address
 
 #
 # Override get_bgp_neighbor_detail
+# Too much info in default getter, which also accumulates
+# the rib table counts rather than representing separately
 #
 
 junos_bgp_neighbors_table:
   rpc: get-bgp-neighbor-information
   item: bgp-peer
-  key: peer-id
+  key: bgp-peer-header/peer-address
   view: junos_bgp_neighbors_view
 
 junos_bgp_neighbors_view:
   fields:
-    up: {peer-state: True=Established}
-    local_as: {local-as: int}
-    remote_as: {peer-as: int}
-    local_as_2: {bgp-peer-header/local-as: int}
-    remote_as_2: {bgp-peer-header/peer-as: int}
-    router_id: {peer-id: unicode}
-    local_address: local-id
+    up: { peer-state: True=Established }
+    local_as: { local-as: int }
+    remote_as: { peer-as: int }
+    local_as_2: { bgp-peer-header/local-as: int }
+    remote_as_2: { bgp-peer-header/peer-as: int }
+    router_id: { peer-id: unicode }
+    local_address: bgp-peer-header/local-address
     routing_table: peer-fwd-rti
-    import_policy: {bgp-option-information/import-policy: unicode}
-    export_policy: {bgp-option-information/export-policy: unicode}
+    import_policy: { bgp-option-information/import-policy: unicode }
+    export_policy: { bgp-option-information/export-policy: unicode }
     rib: junos_bgp_rib_table
+
+junos_bgp_rib_table:
+  item: bgp-rib
+  key: name
+  view: junos_bgp_rib_view
+
+junos_bgp_rib_view:
+  fields:
+    received_prefix_count: { received-prefix-count: int }
+    accepted_prefix_count: { accepted-prefix-count: int }
+    advertised_prefix_count: { advertised-prefix-count: int }
 
 #
 # Get BGP Rx Routes info
@@ -137,9 +145,9 @@ junos_bgp_rx_route_view:
     prefix_length: rt-prefix-length
     next_hop: rt-entry/nh/to
     as_path: rt-entry/as-path
-    local_preference: {rt-entry/local-preference: int}
+    local_preference: { rt-entry/local-preference: int }
     communities: rt-entry/communities/community
-    metric: {rt-entry/med: int}
+    metric: { rt-entry/med: int }
 
 #
 # Custom 'get_route_to', return less info than default getter, no need for
@@ -159,10 +167,10 @@ junos_bgp_route_table:
 
 junos_bgp_table_view:
   fields:
-    destination: {../../rt-destination: unicode}
-    prefix_length: {../../rt-prefix-length: int}
-    next_hop: {to: unicode}
-    as_path: {../as-path: unicode}
-    local_preference: {../local-preference: int}
-    communities: {../communities/community: unicode}
-    metric: {../metric: int}
+    destination: { ../../rt-destination: unicode }
+    prefix_length: { ../../rt-prefix-length: int }
+    next_hop: { to: unicode }
+    as_path: { ../as-path: unicode }
+    local_preference: { ../local-preference: int }
+    communities: { ../communities/community: unicode }
+    metric: { ../metric: int }

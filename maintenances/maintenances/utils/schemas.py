@@ -7,7 +7,14 @@ from pydantic import (
     validator,
 )
 
-# get Jira list of projects
+_JIRA_PROJECTS_LIST = [
+    "COR",
+    "SYS",
+    "DEV",
+    "NOC",
+    "ISO",
+    "CEN",
+]
 
 
 class BaseYAML(BaseModel):
@@ -31,7 +38,7 @@ class BaseYAML(BaseModel):
     def check_tickets_all(cls, ticket):
         """Validate Jira ticket."""
         error_msg = f"{ticket} must be a valid ticket number."
-        # assert ticket[:3] in JIRA_PROJECTS_LIST, error_msg -- get list of projects
+        assert ticket[:3] in _JIRA_PROJECTS_LIST, error_msg
         assert ticket[3] == "-", error_msg
         assert ticket[4:].isdigit(), error_msg
         return ticket
@@ -47,7 +54,7 @@ class MigrationsSchema(BaseYAML):
     sheet_title: str
 
 
-class DevicesSchema(MigrationsSchema):
+class DevicesSchema(BaseYAML):
     """Schema for Devices Snapshots."""
 
     pass

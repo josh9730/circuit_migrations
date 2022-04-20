@@ -13,7 +13,6 @@ Keyring:
 
 class Login:
     def __init__(self):
-
         # credentials, via keyring
         self.cas_user = keyring.get_password("cas", "user")
         self.cas_pass = keyring.get_password("cas", self.cas_user)
@@ -38,5 +37,5 @@ class Login:
             hostname=hostname,
             username=self.mfa_user,
             password=self.mfa_pass + self.otp.now(),
-            timeout=1000,
+            timeout=300,
         )

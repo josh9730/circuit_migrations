@@ -275,4 +275,4 @@ class CustomIOSXRDriver(IOSXRDriver):
         if parsed_output:
             return [i[0] for i in parsed_output]
         else:
-            return parsed_output
+            return [None]

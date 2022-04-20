@@ -38,13 +38,20 @@ def collapse_bgp(iface_dict, bgp_dict):
         # iBGP
         if iface_dict[iface].get("isis_neighbor"):
             isis_neighbor = iface_dict[iface]["isis_neighbor"]
-            v4_neighbor = socket.gethostbyname(isis_neighbor)
+
+            # try finding A/AAAA records for the ISIS neighbor hostname
+            v6_neighbor = None
             try:
-                v6_neighbor = socket.getaddrinfo(
-                    isis_neighbor, None, socket.AF_INET6, socket.SOCK_DGRAM
-                )[0][-1][0]
-            except IndexError:
-                print(f"{iface_dict} has no IPv6 Neighbor.")
+                v4_neighbor = socket.gethostbyname(isis_neighbor)
+            except socket.gaierror:
+                v4_neighbor = isis_neighbor
+            else:
+                try:
+                    v6_neighbor = socket.getaddrinfo(
+                        isis_neighbor, None, socket.AF_INET6, socket.SOCK_DGRAM
+                    )[0][-1][0]
+                except IndexError:
+                    pass
 
         # eBGP
         elif iface_dict[iface].get("arp_nh"):

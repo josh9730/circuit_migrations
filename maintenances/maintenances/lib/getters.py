@@ -75,15 +75,12 @@ class Main:
         GSheets(self.data).dump_circuits_all(interfaces_df, bgp_missing_df)
 
     def devices_pms(self) -> dict:
-        """Dumps JSON of Device-specific outputs for PMs.
-
-        optics???
-        """
+        """Dumps JSON of Device-specific outputs for PMs."""
         iface_counters = self.napalm_connection.get_interfaces_counters()
         interfaces_all = self._interface_common_getters((iface_counters,))
 
         bgp = self.napalm_connection.get_bgp_neighbors_detail()
-        if not self.device_type == "junos":  # junos has custom getter
+        if not self.device_type == "junos":  # junos has custom BGP getter
             bgp = parsers.format_bgp_detail(bgp)
 
         msdp = self.napalm_connection.get_msdp_neighbrs_custom()
@@ -117,30 +114,39 @@ class Main:
         for counter, circuit in enumerate(self.data["circuits"]):
             circuit_data = interfaces_all[circuit["port"]]
             clr = f'CLR-{circuit["clr"]}'
+            host_address = circuit_data["ipv4_address"].split("/")[0]
+            try:
+                dns = socket.gethostbyaddr(host_address)[0].split(".")[0]
+            except socket.gaierror:
+                dns = f"A record not configured for {host_address}"
+
             output_dict.update(
                 {
                     clr: {
                         "Interface": {
                             "Name": circuit["port"],
                             "Description": circuit_data["description"],
-                            "is_enabled": circuit_data["is_enabled"],
-                            "is_up": circuit_data["is_up"],
-                            "mac_address": circuit_data["mac_address"],
-                            "mtu": circuit_data["mtu"],
-                            "ipv4_address": circuit_data["ipv4_address"],
-                            "ipv6_address": circuit_data.get("ipv6_address"),
+                            "Enabled": circuit_data["is_enabled"],
+                            "Up": circuit_data["is_up"],
+                            "MTU": circuit_data["mtu"],
                             "Counters": {
                                 "TX Errors": circuit_data["tx_errors"],
                                 "TX Discards": circuit_data["tx_discards"],
                                 "RX Errors": circuit_data["rx_errors"],
                                 "RX Discards": circuit_data["rx_discards"],
                             },
-                        },
-                        "ARP/ND": {
-                            "arp_nh": circuit_data["arp_nh"],
-                            "arp_nh_mac": circuit_data["arp_nh_mac"],
-                            "nd_nh": circuit_data.get("nd_nh"),
-                            "nd_mac": circuit_data.get("nd_mac"),
+                            "IPv4/IPv6": {
+                                "MAC": circuit_data["mac_address"],
+                                "IPv4 Address": circuit_data["ipv4_address"],
+                                "IPv6 Address": circuit_data.get("ipv6_address"),
+                                "DNS": dns,
+                                "ARP/ND": {
+                                    "ARP Next-Hop": circuit_data["arp_nh"],
+                                    "ARP NH MAC": circuit_data["arp_nh_mac"],
+                                    "IPv6 ND Next-Hop": circuit_data.get("nd_nh"),
+                                    "ND NH MAC": circuit_data.get("nd_mac"),
+                                },
+                            },
                         },
                     }
                 }
@@ -189,13 +195,13 @@ class Main:
             else:
                 routes_list = []
                 if circuit["v4_neighbor"]:
-                    routes_list.append(
+                    routes_list.extend(
                         self.napalm_connection.get_bgp_neighbor_routes(
                             circuit["v4_neighbor"]
                         )
                     )
                 if circuit["v6_neighbor"]:
-                    routes_list.append(
+                    routes_list.extend(
                         self.napalm_connection.get_bgp_neighbor_routes(
                             circuit["v6_neighbor"]
                         )

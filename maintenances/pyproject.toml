@@ -19,6 +19,7 @@ pygsheets = "^2.0.5"
 pydantic = "^1.9.0"
 typer = "^0.4.0"
 ipaddress = "^1.0.23"
+dictdiffer = "^0.9.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
