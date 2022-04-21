@@ -3,13 +3,12 @@ ticket: NOC-600000
 # hostname: lax-agg10
 # device_type: junos
 
-hostname: fre-agg4
+hostname: sdg-agg4
 device_type: iosxr
-
 
 # Migrations, pygsheets vars
 folder_id: 1CgYtqYFZy5M3WfgpYGu0exBF6FERulwu
-sheet_title: FRES1 MX10K Migration
+sheet_title: SAND1 MX10K Migration
 
 # Circuits
 global_router: lax-agg10 # only required for XR
@@ -19,11 +18,10 @@ global_router: lax-agg10 # only required for XR
 #     cpe: sh-pub-lib-1
 #     clr: 16517
 
-
 # fre-agg4
 circuits:
   - port: GigabitEthernet100/0/0/5
-    cpe: mar-coe-5  # only for iBGP
+    cpe: mar-coe-5 # only for iBGP
     clr: 6381
   - port: TenGigE0/3/0/15
     clr: 7149

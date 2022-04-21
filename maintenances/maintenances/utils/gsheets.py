@@ -16,6 +16,12 @@ class GSheets:
             self.sht = client.create(data["sheet_title"], folder=data["folder_id"])
 
     def dump_circuits_all(self, interfaces_df, bgp_missing_df, clear=True):
+        """Dump circuits via pygsheets to specified GSheets.
+
+        Creates or updates a circuits-based sheet, and a non-circuit BGP sheet for
+        peers not directly related to a port (such as iBGP peerings without a corresponding
+        IS-IS peering).
+        """
         try:
             circuits_sheet = self.sht.worksheet_by_title("circuits")
             bgp_sheet = self.sht.worksheet_by_title("bgp")

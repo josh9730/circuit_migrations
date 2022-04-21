@@ -107,6 +107,6 @@ class CircuitsSchema(BaseYAML):
 
     @validator("global_router")
     def check_global_router(cls, v, values):
-        if values['device_type'] == "iosxr":
+        if values["device_type"] == "iosxr":
             BaseYAML.ping_test(v)
             return socket.gethostbyname(v)

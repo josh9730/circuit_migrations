@@ -127,7 +127,9 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
 
             try:
-                isis_neighbors[iface_table_interface].update({"isis_metric": int(metric)})
+                isis_neighbors[iface_table_interface].update(
+                    {"isis_metric": int(metric)}
+                )
             except KeyError:  # Loopback 0 has metric, not needed
                 continue
         return isis_neighbors

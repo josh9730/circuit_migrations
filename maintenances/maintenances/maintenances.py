@@ -7,8 +7,9 @@ from pprint import pprint
 import typer
 import yaml
 from dictdiffer import diff
-from lib import getters
 from pydantic import ValidationError
+
+from lib import getters
 from utils import logins, schemas
 
 """
@@ -118,7 +119,7 @@ def snapshots(
                     pass
 
         finally:
-            print(f'Writing output to {filename}')
+            print(f"Writing output to {filename}")
             with open("outputs/" + filename, "w") as f:
                 json.dump(output, f, indent=2)
 
@@ -128,23 +129,21 @@ def snapshots(
             pprint(diffs, indent=2)
             print("\n", "-" * 10, "END DIFFS", "-" * 10, "\n")
 
-            print(f'Writing diffs to {filename}')
+            print(f"Writing diffs to {filename}")
             with open("outputs/" + base_filename + "diffs.json", "w") as f:
                 json.dump(diffs, f, indent=2)
 
     else:
         filename = base_filename + "pre.json"
-        print(f'Writing output to {filename}')
+        print(f"Writing output to {filename}")
         with open("outputs/" + filename, "w") as f:
             json.dump(output, f, indent=2)
 
     if jira:
         jira = logins.Login().jira_login()
         print(f'Uploading {filename} to {data["ticket"]}.')
-        jira.add_attachment(data['ticket'], 'output/' + filename)
+        jira.add_attachment(data["ticket"], "output/" + filename)
 
 
 if __name__ == "__main__":
     maintenances()
-
-# fre-agg4_circuit_2022-04-19_pre.json

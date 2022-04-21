@@ -3,13 +3,6 @@ import pyotp
 from atlassian import Jira
 from napalm.base import get_network_driver
 
-"""
-Keyring:
-- keyring set jira url {{ URL }}
-- keyring set mfa {{ USERNAME }}
-- keyring set otp {{ USERNAME }}
-"""
-
 
 class Login:
     def __init__(self):

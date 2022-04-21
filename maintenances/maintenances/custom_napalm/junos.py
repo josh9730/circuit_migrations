@@ -1,9 +1,10 @@
 import logging
 
 import netaddr
-from custom_napalm.utils import junos_cust_views
 from jnpr.junos.exception import RpcError
 from napalm.junos.junos import JunOSDriver
+
+from custom_napalm.utils import junos_cust_views
 
 log = logging.getLogger(__file__)
 
