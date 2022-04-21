@@ -9,9 +9,7 @@ from lib import parsers
 
 class Main:
     def __init__(self, data):
-        self.hostname = socket.gethostbyname(
-            data["hostname"]
-        )  # using hostname breaks on XR
+        self.hostname = data['hostname']
         self.data = data
         self.device_type = data["device_type"]
         self.logins = Login()
@@ -165,10 +163,13 @@ class Main:
                     }
                 )
 
-            # eBGP, static?
+            # eBGP, retrieve neighbor IPs for routes getter
             else:
-                circuit["v4_neighbor"] = circuit_data.get("arp_nh")
-                circuit["v6_neighbor"] = circuit_data.get("nd_nh")
+                if not circuit["v4_neighbor"]:
+                    circuit["v4_neighbor"] = circuit_data.get("arp_nh")
+
+                if not circuit["v6_neighbor"]:
+                    circuit["v6_neighbor"] = circuit_data.get("nd_nh")
 
             # 'get_bgp_neighbor_routes' for Junos is able to retrieve both the
             # list of routes like the XR getter, as well as all other needed

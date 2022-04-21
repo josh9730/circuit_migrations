@@ -35,18 +35,19 @@ class BaseYAML(BaseModel):
         assert output.returncode == 0, f"Invalid hostname {host}"
 
     @validator("ticket")
-    def check_tickets_all(cls, ticket):
+    def check_tickets_all(cls, v):
         """Validate Jira ticket."""
-        error_msg = f"{ticket} must be a valid ticket number."
-        assert ticket[:3] in _JIRA_PROJECTS_LIST, error_msg
-        assert ticket[3] == "-", error_msg
-        assert ticket[4:].isdigit(), error_msg
-        return ticket
+        error_msg = f"{v} must be a valid ticket number."
+        assert v[:3] in _JIRA_PROJECTS_LIST, error_msg
+        assert v[3] == "-", error_msg
+        assert v[4:].isdigit(), error_msg
+        return v
 
     @validator("hostname")
-    def check_hostname(cls, hostname):
-        BaseYAML.ping_test(hostname)
-        return hostname
+    def check_hostname(cls, v):
+        """Changes Hostname to IP to correct issues on IOS-XR authentication."""
+        BaseYAML.ping_test(v)
+        return socket.gethostbyname(v)
 
 
 class MigrationsSchema(BaseYAML):
@@ -103,10 +104,11 @@ class Circuit(BaseModel):
 class CircuitsSchema(BaseYAML):
     """Schema for Circuits Snapshots."""
 
-    global_router: str
+    global_router: Optional[str]
     circuits: list[Circuit]
 
     @validator("global_router")
-    def check_global_router(cls, v):
-        BaseYAML.ping_test(v)
-        return v
+    def check_global_router(cls, v, values):
+        if values['device_type'] == "iosxr":
+            BaseYAML.ping_test(v)
+            return socket.gethostbyname(v)
