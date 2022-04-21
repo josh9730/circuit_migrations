@@ -1,15 +1,16 @@
-import time
 import socket
-import pandas as pd
+import time
 
-from utils.logins import Login
+import pandas as pd
 from utils.gsheets import GSheets
+from utils.logins import Login
+
 from lib import parsers
 
 
 class Main:
     def __init__(self, data):
-        self.hostname = data['hostname']
+        self.hostname = data["hostname"]
         self.data = data
         self.device_type = data["device_type"]
         self.logins = Login()

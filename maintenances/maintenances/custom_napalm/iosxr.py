@@ -1,17 +1,14 @@
-from napalm.iosxr.iosxr import IOSXRDriver
-from napalm.base.helpers import find_txt as napalm_find_txt
 import copy
-import textfsm
-import tempfile
 import re
+import tempfile
+
+import textfsm
 from lxml import etree as ETREE
+from napalm.base.helpers import find_txt as napalm_find_txt
+from napalm.iosxr.iosxr import IOSXRDriver
 from netaddr import EUI
 
-from . import (
-    textfsm_optics,
-    textfsm_nd,
-    textfsm_bgp_rx,
-)
+from . import textfsm_bgp_rx, textfsm_nd, textfsm_optics
 
 
 class CustomIOSXRDriver(IOSXRDriver):

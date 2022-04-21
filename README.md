@@ -86,7 +86,11 @@ The Device Snapshots output is similar. Migrations pulls are similar to Device S
 
 # How to Install
 
-This program is packaged via Poetry, and can be installed via pip using the provided wheel (under `dist`), or you can clone this repo. 
+This program is packaged via [Poetry](https://python-poetry.org) for dependency management.
+
+1. Clone this repo locally
+2. Navigate to the `dist` folder of your cloned repo
+3. Install the wheel: `pip3 install *.whl`
 
 # How to Perform Initial Setup
 

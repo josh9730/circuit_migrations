@@ -1,11 +1,9 @@
-import subprocess
 import ipaddress
 import socket
+import subprocess
 from typing import Literal, Optional
-from pydantic import (
-    BaseModel,
-    validator,
-)
+
+from pydantic import BaseModel, validator
 
 _JIRA_PROJECTS_LIST = [
     "COR",

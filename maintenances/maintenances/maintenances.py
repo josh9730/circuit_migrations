@@ -1,16 +1,15 @@
-import sys
-import yaml
 import json
-import typer
-from dictdiffer import diff
+import sys
 from datetime import datetime
-from pprint import pprint
 from enum import Enum
-from pydantic import ValidationError
+from pprint import pprint
 
-from utils import schemas, logins
+import typer
+import yaml
+from dictdiffer import diff
 from lib import getters
-
+from pydantic import ValidationError
+from utils import logins, schemas
 
 """
 Notes:

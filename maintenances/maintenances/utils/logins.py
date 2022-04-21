@@ -1,7 +1,7 @@
-from napalm.base import get_network_driver
-from atlassian import Jira
 import keyring
 import pyotp
+from atlassian import Jira
+from napalm.base import get_network_driver
 
 """
 Keyring:
