@@ -21,12 +21,12 @@ Several functions are included:
 # How Does It Work
 
 - User login info (MFA & Jira) are required to be saved locally to your Mac's Keychain to be accessed by the program via the Keyring library
-- The user requests are input to a YAML file (`data.yaml`), which is validated using Pydantic before running the program
-- NAPALM is used for all 'getters' (data retrieval from devices)
-    - Many custom getters have been written (in PyEZ for Junos and PyIOSXR for IOS-XR)
-- pygsheets (and Pandas) are used to push Migration data to Google Sheets
-- Optionally, diffs can be requested between subsequent runs of the program. The diffs are printed to the terminal as well as written to a file
-- Optionally, for Snapshots, outputs can be uploaded to a specified Jira ticket
+- The user requests are input to a YAML file (`data.yaml`), which is validated using [Pydantic](https://pydantic-docs.helpmanual.io) before running the program
+- [NAPALM](https://napalm.readthedocs.io/en/latest/) is used for all 'getters' (data retrieval from devices)
+    - Many custom getters have been written for NAPALM (in [PyEZ](https://junos-pyez.readthedocs.io/en/2.6.3/) for Junos and [PyIOSXR](https://github.com/fooelisa/pyiosxr) for IOS-XR)
+- [pygsheets](https://pygsheets.readthedocs.io/en/stable/index.html) (and [Pandas](https://pandas.pydata.org/docs/user_guide/index.html)) are used to push Migration data to Google Sheets
+- Optionally, diffs (using [dictdiffer](https://dictdiffer.readthedocs.io/en/latest/)) can be requested between subsequent runs of the program. The diffs are printed to the terminal as well as written to a file
+- Optionally, for Snapshots, outputs can be uploaded to a specified Jira ticket using the [Atlassian API](https://atlassian-python-api.readthedocs.io)
 
 # Why Should I Use This
 
@@ -155,4 +155,25 @@ circuits:
 
 The program can be launched from `maintenances.py`.
 
-[Typer](https://typer.tiangolo.com) is used as the command-line interface. `--help` can be used to walk through the available arguments and view help text.
+[Typer](https://typer.tiangolo.com) is used as the command-line interface. `--help` can be used to walk through the available arguments and view help text. Example:
+
+```bash
+jdickman@jd5099 maintenances % python maintenances.py --help
+Usage: maintenances.py [OPTIONS] COMMAND [ARGS]...
+
+  Maintenance functions per-device and per-circuit.
+
+  Snapshots: - Circuit: Get interesting info by circuit, including BGP Path
+  Attributes. Outputs json file, diff-able. - Device: Get interesting info by
+  device. Outputs json file, diff-able.
+
+  Migrations: - Get interesting info by device, push to GSheet (using pandas).
+  Similar to Device Snapshots.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  migrations  Pull full device data and upload to GSheets.
+  snapshots   Pull snapshots by Device or Circuit.
+```

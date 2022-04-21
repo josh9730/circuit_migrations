@@ -63,7 +63,9 @@ def open_validate_input(model) -> dict:
 
 @maintenances.command()
 def migrations():
-    """Pull full device data. Originally intended for device migrations"""
+    """Pull full device data and upload to GSheets.
+    Originally intended for device migrations.
+    """
     data = open_validate_input(schemas.MigrationsSchema)
     getter = getters.Main(data)
     getter.get_migration_data_full()
@@ -74,11 +76,14 @@ def snapshots(
     snapshots_type: SnapshotsOptions = typer.Argument(
         ..., help="Circuits or Device checks"
     ),
-    diffs: bool = typer.Option(False, "--diffs", "-d", help="Do Diffs and print"),
+    diffs: bool = typer.Option(False, "--diffs", "-d", help="Do diffs and print"),
     jira: bool = typer.Option(
         False, "--jira", "-j", help="Upload snapshots output to ticket"
     ),
 ):
+    """Pull snapshots by Device or Circuit. Intended for either the full Device or by
+    attached Circuit, to be used as pre- and post-maintenance verifications.
+    """
     snapshots_schema = SnapshotsOptions.return_schema(snapshots_type)
     data = open_validate_input(snapshots_schema)
 
