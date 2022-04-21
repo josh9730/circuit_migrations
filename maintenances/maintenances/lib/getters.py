@@ -10,6 +10,9 @@ from lib import parsers
 
 class Main:
     def __init__(self, data):
+        """Main getter class to wrap custom and default NAPALM getters, parse
+        into needed formats, and add additional information as needed.
+        """
         self.hostname = data["hostname"]
         self.data = data
         self.device_type = data["device_type"]
@@ -192,7 +195,7 @@ class Main:
 
             # Non-Junos uses a Junos 'global' router to get the routes data
             # The 'get_bgp_neighbor_routes for non-Junos returns a list of routes
-            # (via an XR CLI command) and then passes this list to a custom.
+            # (via an XR CLI command) and then passes this list to a custom
             # Junos 'get-route-to' getter
             else:
                 routes_list = []
