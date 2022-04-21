@@ -133,19 +133,19 @@ circuits:
     v6_neighbor:
 ```
 
-Always Required
+#### Always Required
 1. `ticket`: Ticket number for Jira upload. Must be in {{ PROJECT }}-{{ KEY }} format. If not using Jira, enter in any value, such as `NOC-123456`.
 2. `hostname`: Must be a reachable hostname or IP, this will be checked during YAML validation.
 3. `device_type`: Must be `iosxr` or `junos`. Other device types are not supported at this time.
 
-For Migrations
-4. `folder_id`: Required for Migrations. This is the identifier of the folder you want to use, which is the string after `drive.google.com/drive/u/0/folders/` when navigating to this folder.
-5. `sheet_title`: Required for Migrations. Title of the Google Sheet being used. Use an existing sheet's title if you want to overwrite.
+#### For Migrations
+1. `folder_id`: Required for Migrations. This is the identifier of the folder you want to use, which is the string after `drive.google.com/drive/u/0/folders/` when navigating to this folder.
+2. `sheet_title`: Required for Migrations. Title of the Google Sheet being used. Use an existing sheet's title if you want to overwrite.
 
-For Circuits Snapshots:
-6. `global_router`: This is only required for IOS-XR Circuit Snapshots, can be left blank if Junos. Must be a reachable hostname or IP, this will be checked during YAML validation.
-7. `circuits`: List of dictionaries, only required for Circuits Snapshots
-8. `port`: Required field. This must be the literal port name of the circuit you want to check.
+#### For Circuits Snapshots:
+1. `global_router`: This is only required for IOS-XR Circuit Snapshots, can be left blank if Junos. Must be a reachable hostname or IP, this will be checked during YAML validation.
+1. `circuits`: List of dictionaries, only required for Circuits Snapshots
+1. `port`: Required field. This must be the literal port name of the circuit you want to check.
 1. `cpe`: Hostname (or IP) of the CPE, required if this is an iBGP connection (cannot get the BGP info from the port IPs if iBGP).
 1. `clr`: Required field. Integer identifier of the circuit ID.
 1. `v4_neighbor`: Optional field. For BGP, neighbor IPs are retrieved from ARP or from the A record, which may either fail or return a non-BGP-speaking IP. Set this field to override if needed.
