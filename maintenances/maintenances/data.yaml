@@ -3,7 +3,7 @@ ticket: NOC-600000
 # hostname: lax-agg10
 # device_type: junos
 
-hostname: sdg-agg4
+hostname: fre-agg4
 device_type: iosxr
 
 # Migrations, pygsheets vars
@@ -23,7 +23,7 @@ circuits:
   - port: GigabitEthernet100/0/0/5
     cpe: mar-coe-5 # only for iBGP
     clr: 6381
-  - port: TenGigE0/3/0/15
-    clr: 7149
+  - port: TenGigE0/3/0/2.1147
+    clr: 6523
     # v6_neighbor: 2607:f380::118:9a40:5511
     # v4_neighbor: 137.164.5.81

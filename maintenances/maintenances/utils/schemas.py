@@ -43,9 +43,9 @@ class BaseYAML(BaseModel):
 
     @validator("hostname")
     def check_hostname(cls, v):
-        """Changes Hostname to IP to correct issues on IOS-XR authentication."""
+        """Check reachability."""
         BaseYAML.ping_test(v)
-        return socket.gethostbyname(v)
+        return v
 
 
 class MigrationsSchema(BaseYAML):
@@ -82,7 +82,7 @@ class Circuit(BaseModel):
             except KeyError:
                 pass
         else:
-            return v.__str__()
+            return v
 
     @validator("v6_neighbor", always=True)
     def v6_neighbor_ip(cls, v, values) -> str:
@@ -96,7 +96,7 @@ class Circuit(BaseModel):
             except KeyError:
                 pass
         else:
-            return v.__str__()
+            return v
 
 
 class CircuitsSchema(BaseYAML):

@@ -12,7 +12,7 @@ log = logging.getLogger(__file__)
 class CustomJunOSDriver(JunOSDriver):
     """Extends base JunOSDriver for custom methods."""
 
-    def rpc_get(self, rpc_input, msg):
+    def _rpc_get(self, rpc_input, msg):
         """Method for rpc get, return errors."""
         try:
             return rpc_input.get()
@@ -20,6 +20,35 @@ class CustomJunOSDriver(JunOSDriver):
             log.error(f"Unable to retrieve {msg} information:")
             log.error(str(rpcerr))
             return {}
+
+    def _bgp_routes_format(self, route_dict: dict, destination: str) -> dict:
+        """Takes dict created from returned tuple, and parses."""
+        prefix_length = route_dict.pop("prefix_length", 32)
+        destination = f"{destination}/{prefix_length}"
+
+        as_path = route_dict.get("as_path")
+        if as_path is not None:  # return only AS Numbers
+            as_path = (
+                as_path.split(" I ")[0]
+                .replace("AS path:", "")
+                .replace("I", "")
+                .replace("\n Recorded", "")
+                .strip()
+            )
+
+        communities = route_dict.get("communities")
+        if communities is not None and type(communities) is not list:
+            communities = [communities]
+
+        return {
+            destination: {
+                "Next-Hop": route_dict["next_hop"],
+                "Local Preference": route_dict["local_preference"],
+                "AS-Path": as_path,
+                "MED": route_dict["metric"],
+                "Communities": communities,
+            }
+        }
 
     def get_isis_interfaces_custom(self) -> dict:
         """Via PyEZ, return dict of ISIS interfaces
@@ -47,9 +76,9 @@ class CustomJunOSDriver(JunOSDriver):
         }
         """
         rpc_adj = junos_cust_views.ISISAdjacencyTable(self.device)
-        isis_adjacencies = self.rpc_get(rpc_adj, "IS-IS neighbors").items()
+        isis_adjacencies = self._rpc_get(rpc_adj, "IS-IS neighbors").items()
         rpc_int = junos_cust_views.ISISInterfaceTable(self.device)
-        isis_interfaces = self.rpc_get(rpc_int, "IS-IS neighbors").items()
+        isis_interfaces = self._rpc_get(rpc_int, "IS-IS neighbors").items()
 
         # convert int_results to dict
         int_dict = {}
@@ -75,7 +104,7 @@ class CustomJunOSDriver(JunOSDriver):
         }
         """
         rpc = junos_cust_views.MPLSInterfaceTable(self.device)
-        mpls_interfaces = self.rpc_get(rpc, "MPLS Interfaces").items()
+        mpls_interfaces = self._rpc_get(rpc, "MPLS Interfaces").items()
 
         # create return dict
         mpls = {}
@@ -86,12 +115,12 @@ class CustomJunOSDriver(JunOSDriver):
     def get_msdp_neighbrs_custom(self) -> list:
         """Via PyEZ, return list of MSDP neighbors."""
         rpc = junos_cust_views.MSDPNeighborTable(self.device)
-        return self.rpc_get(rpc, "MSDP Neighbors").keys()
+        return self._rpc_get(rpc, "MSDP Neighbors").keys()
 
     def get_pim_neighbors_custom(self) -> list:
         """Via PyEZ, return list of PIM neighbors."""
         rpc = junos_cust_views.PIMNeighborTable(self.device)
-        return self.rpc_get(rpc, "PIM Interfaces").keys()
+        return self._rpc_get(rpc, "PIM Interfaces").keys()
 
     def get_arp_table_custom(self) -> dict:
         """Via PyEZ, return dict of ARP table.
@@ -108,7 +137,7 @@ class CustomJunOSDriver(JunOSDriver):
         MAC is normalized using EUI format.
         """
         rpc = junos_cust_views.ARPTable(self.device)
-        arp_table = self.rpc_get(rpc, "ARP").items()
+        arp_table = self._rpc_get(rpc, "ARP").items()
 
         arp = {}
         for neighbor in arp_table:
@@ -136,7 +165,7 @@ class CustomJunOSDriver(JunOSDriver):
         MAC is normalized using EUI format.
         """
         rpc = junos_cust_views.NDTable(self.device)
-        nd_table = self.rpc_get(rpc, "IPv6 ND").items()
+        nd_table = self._rpc_get(rpc, "IPv6 ND").items()
 
         nd = {}
         for neighbor in nd_table:
@@ -149,7 +178,7 @@ class CustomJunOSDriver(JunOSDriver):
                 pass
         return nd
 
-    def get_bgp_neighbors_detail(self) -> dict:
+    def get_bgp_neighbors_detail_custom(self) -> dict:
         """Via PyEz, return custom BGP Neighbors Detail.
 
         Differences between hardware/software versions. Default Napalm getter
@@ -198,7 +227,7 @@ class CustomJunOSDriver(JunOSDriver):
         },
         """
         rpc = junos_cust_views.junos_bgp_neighbors_table(self.device)
-        neighbor_data = self.rpc_get(rpc, "BGP Neighbors").items()
+        neighbor_data = self._rpc_get(rpc, "BGP Neighbors").items()
 
         bgp_detail = {}
         for neighbor in neighbor_data:
@@ -229,36 +258,7 @@ class CustomJunOSDriver(JunOSDriver):
             bgp_detail.update({neighbor[0].split("+")[0]: neighbor_details})
         return bgp_detail
 
-    def _bgp_routes_format(self, route_dict: dict, destination: str) -> dict:
-        """Takes dict created from returned tuple, and parses."""
-        prefix_length = route_dict.pop("prefix_length", 32)
-        destination = f"{destination}/{prefix_length}"
-
-        as_path = route_dict.get("as_path")
-        if as_path is not None:  # return only AS Numbers
-            as_path = (
-                as_path.split(" I ")[0]
-                .replace("AS path:", "")
-                .replace("I", "")
-                .replace("\n Recorded", "")
-                .strip()
-            )
-
-        communities = route_dict.get("communities")
-        if communities is not None and type(communities) is not list:
-            communities = [communities]
-
-        return {
-            destination: {
-                "Next-Hop": route_dict["next_hop"],
-                "Local Preference": route_dict["local_preference"],
-                "AS-Path": as_path,
-                "MED": route_dict["metric"],
-                "Communities": communities,
-            }
-        }
-
-    def get_bgp_neighbor_routes(self, peer: str) -> list:
+    def get_bgp_neighbor_routes_custom(self, peer: str) -> list:
         """Via PyEZ, return BGP neighbor information from direct neighbor.
         Equivalent to:
             show route receive-protobgp bgp {{ NEIGHBOR }} table {{ table }} extensive
@@ -301,7 +301,7 @@ class CustomJunOSDriver(JunOSDriver):
 
         return routes
 
-    def get_route_to(self, routes_list: list, neighbor="") -> dict:
+    def get_route_to_custom(self, routes_list: list, neighbor="") -> dict:
         """Custom implementation of default 'get_route_to' getter. Returns less info,
         specific to BGP. Eliminates the need for a parser. Much of this is from the
         Napalm getter.
@@ -341,6 +341,7 @@ class CustomJunOSDriver(JunOSDriver):
                 route_dict = {elem[0]: elem[1] for elem in route_output[0][1]}
                 destination = route_dict.pop("destination", "")
                 routes.update(self._bgp_routes_format(route_dict, destination))
+
         if not routes:
             routes = "No active BGP prefixes."
         return routes

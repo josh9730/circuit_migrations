@@ -257,7 +257,7 @@ class CustomIOSXRDriver(IOSXRDriver):
             )
         return optics
 
-    def get_bgp_neighbor_routes(self, neighbor: str) -> list:
+    def get_bgp_neighbor_routes_custom(self, neighbor: str) -> list:
         """Return list of accepted routes for the specified BGP neighbor.
         Uses CLI.
         """
