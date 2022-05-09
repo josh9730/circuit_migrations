@@ -63,7 +63,7 @@ class Main:
         interfaces_all = self._interface_common_getters((optics,))
 
         bgp = parsers.format_bgp_detail(
-            self.napalm_connection.get_bgp_neighbors_detail_custom()
+            self.napalm_connection.get_bgp_neighbors_detail()
         )
         self.napalm_connection.close()
 
